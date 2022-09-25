@@ -14,6 +14,9 @@ def print_input(stdscr):
     stdscr.addstr('read/write/update users/repositories\n', curses.A_UNDERLINE)
     stdscr.addstr('of your private or organization GitHub account.\n\n')
 
+    stdscr.addstr('In order to see manual with documentation start program with --help or -h flag.\n')
+    stdscr.addstr('The other way to do that is chose documentation menu after start.\n\n')
+
     stdscr.addstr('Press any key to start...')
     stdscr.getch()
     stdscr.clear()
