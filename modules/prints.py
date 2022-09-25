@@ -9,6 +9,8 @@ INTRO_LOGO = [
     '+-------------------------------------------------------------------------+\n\n'
 ]
 
+PAD_CONTENT = []
+
 
 def print_logo(stdscr, color_pair_id):
     h, w = stdscr.getmaxyx()
@@ -56,55 +58,65 @@ def print_menu_description(stdscr):
 
 
 def print_documentation(stdscr):
-    x, y = stdscr.getmaxyx()
-    pad = curses.newpad(x, y)
+    height, width = stdscr.getmaxyx()
+
+    pad_height = 32767
+
+    pad = curses.newpad(pad_height, width)
+    pad.scrollok(True)
     pad_pos = 0
-    quit_docs = False
-    pad.refresh(pad_pos, 0, 0, 0, x, y)
+    pad_refresh = lambda: pad.refresh(pad_pos + 2, 0, 0, 0, height - 1, width)
+    pad_refresh()
 
-    print_logo(pad, 5)
+    try:
+        print_logo(pad, 5)
 
-    pad.addstr('DOCUMENTATION\n\n', curses.A_BOLD)
-    pad.addstr('GitHub manager - being Python written terminal-based interactive application - provides users with\n', curses.A_BOLD)
-    pad.addstr('very simple opportunity to manage GitHub REST API using interactive shell\n\n', curses.A_BOLD)
+        pad.addstr('DOCUMENTATION\n\n', curses.A_BOLD)
+        pad.addstr('GitHub manager - being Python written terminal-based interactive application - provides users with\n', curses.A_BOLD)
+        pad.addstr('very simple opportunity to manage GitHub REST API using interactive shell\n\n', curses.A_BOLD)
 
-    pad.addstr('Below will be listed description to every possible menu option (basically, just GitHub REST API endpoint) of application.\n\n')
+        pad.addstr('Below will be listed description to every possible menu option (basically, just GitHub REST API endpoint) of application.\n\n')
 
-    pad.addstr('Get organization\'s members', curses.color_pair(2))
-    pad.addstr(' - GET /orgs/{org}/members - List organization members\n', curses.A_BOLD)
-    pad.addstr('List all users who are members of an organization. If the authenticated user is also a member of this organization\n')
-    pad.addstr('then both concealed and public members will be returned.\n\n')
+        pad.addstr('Get organization\'s members', curses.color_pair(2))
+        pad.addstr(' - GET /orgs/{org}/members - List organization members\n', curses.A_BOLD)
+        pad.addstr('List all users who are members of an organization. If the authenticated user is also a member of this organization\n')
+        pad.addstr('then both concealed and public members will be returned.\n\n')
 
-    pad.addstr('Get organization\'s member', curses.color_pair(2))
-    pad.addstr(' - GET /orgs/{org}/members/{username} - Check organization membership for a user\n', curses.A_BOLD)
-    pad.addstr('Check if a user is, publicly or privately, a member of the organization.\n\n')
+        pad.addstr('Get organization\'s member', curses.color_pair(2))
+        pad.addstr(' - GET /orgs/{org}/members/{username} - Check organization membership for a user\n', curses.A_BOLD)
+        pad.addstr('Check if a user is, publicly or privately, a member of the organization.\n\n')
 
-    pad.addstr('Get repository\'s collaborators', curses.color_pair(2))
-    pad.addstr(' - GET /repos/{owner}/{repo}/collaborators - List repository collaborators\n', curses.A_BOLD)
-    pad.addstr('For organization-owned repositories, the list of collaborators includes outside\n')
-    pad.addstr('collaborators, organization members that are direct collaborators, organization\n')
-    pad.addstr('members with access through team memberships, organization members with\n')
-    pad.addstr('access through default organization permissions, and organization owners.\n\n')
+        pad.addstr('Get repository\'s collaborators', curses.color_pair(2))
+        pad.addstr(' - GET /repos/{owner}/{repo}/collaborators - List repository collaborators\n', curses.A_BOLD)
+        pad.addstr('For organization-owned repositories, the list of collaborators includes outside\n')
+        pad.addstr('collaborators, organization members that are direct collaborators, organization\n')
+        pad.addstr('members with access through team memberships, organization members with\n')
+        pad.addstr('access through default organization permissions, and organization owners.\n\n')
 
-    pad.addstr('Get repository\'s collaborator by username', curses.color_pair(2))
-    pad.addstr(' - GET /repos/{owner}/{repo}/collaborators/{username} - Check if a user is a repository collaborator\n', curses.A_BOLD)
-    pad.addstr('For organization-owned repositories, the list of collaborators includes outside\n')
-    pad.addstr('collaborators, organization members that are direct collaborators, organization\n')
-    pad.addstr('members with access through team memberships, organization members with\n')
-    pad.addstr('access through default organization permissions, and organization owners.\n\n')
+        pad.addstr('Get repository\'s collaborator by username', curses.color_pair(2))
+        pad.addstr(' - GET /repos/{owner}/{repo}/collaborators/{username} - Check if a user is a repository collaborator\n', curses.A_BOLD)
+        pad.addstr('For organization-owned repositories, the list of collaborators includes outside\n')
+        pad.addstr('collaborators, organization members that are direct collaborators, organization\n')
+        pad.addstr('members with access through team memberships, organization members with\n')
+        pad.addstr('access through default organization permissions, and organization owners.\n\n')
 
-    pad.addstr('\nReference: https://docs.github.com/en/rest/overview/endpoints-available-for-github-apps', curses.color_pair(1))
+        pad.addstr('\nReference: https://docs.github.com/en/rest/overview/endpoints-available-for-github-apps', curses.color_pair(1))
 
-    pad.addstr('\n\nPress ENTER to continue...')
+        pad.addstr('\n\nPress ENTER to continue...')
 
-    while not quit_docs:
-        key = stdscr.getch()
+        running = True
+        while running:
+            key = stdscr.getch()
+            if key == curses.KEY_DOWN and pad_pos < pad.getyx()[0] - height - 1:
+                pad_pos += 1
+                pad_refresh()
+            elif key == curses.KEY_UP and pad_pos > -2:
+                pad_pos -= 1
+                pad_refresh()
+            elif key == curses.KEY_ENTER or key in [10, 13]:
+                running = False
+    except KeyboardInterrupt:
+        pass
 
-        if key == curses.KEY_DOWN:
-            pad_pos += 1
-            pad.refresh(pad_pos, 0, 0, 0, x, y)
-        elif key == curses.KEY_UP:
-            pad_pos -= 1
-            pad.refresh(pad_pos, 0, 0, 0, x, y)
-        elif key == curses.KEY_ENTER or key in [10, 13]:
-            quit_docs = True
+    for i in range(0, pad.getyx()[0]):
+        PAD_CONTENT.append(pad.instr(i, 0))
