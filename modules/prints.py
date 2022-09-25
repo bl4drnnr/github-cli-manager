@@ -22,7 +22,7 @@ def print_input(stdscr):
     print_logo(stdscr, 2)
 
     stdscr.addstr('GITHUB-MANAGER - is the simple Python terminal-based interactive application \n')
-    stdscr.addstr('that allows you use GitHub REST API in order to ')
+    stdscr.addstr('that allows you to use GitHub REST API in order to ')
     stdscr.addstr('read/write/update users/repositories\n', curses.A_UNDERLINE)
     stdscr.addstr('of your private or organization GitHub account.\n\n')
 
