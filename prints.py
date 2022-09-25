@@ -1,3 +1,6 @@
+import curses
+
+
 def print_input(stdscr):
     stdscr.addstr('-------------------------------------------------------------------------\n')
     stdscr.addstr('  _________________ ____  _____      __  ______   _  _____  ____________ \n')
@@ -5,3 +8,16 @@ def print_input(stdscr):
     stdscr.addstr('/ (_ // /  / / / _  / /_/ / _  /___/ /|_/ / __ |/    / __ / (_ / _// , _/\n')
     stdscr.addstr('\___/___/ /_/ /_//_/\____/____/   /_/  /_/_/ |_/_/|_/_/ |_\___/___/_/|_| \n')
     stdscr.addstr('-------------------------------------------------------------------------\n\n')
+
+    stdscr.addstr('GITHUB-MANAGER - is the simple Python terminal-based interactive application \n')
+    stdscr.addstr('that allows you use GitHub REST API in order to ')
+    stdscr.addstr('read/write/update users/repositories\n', curses.A_UNDERLINE)
+    stdscr.addstr('of your private or organization GitHub account.\n\n')
+
+    stdscr.addstr('Press any key to start...')
+    stdscr.getch()
+    stdscr.clear()
+
+
+def print_documentation():
+    pass
