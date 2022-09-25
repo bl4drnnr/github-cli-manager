@@ -1,13 +1,21 @@
 import curses
 
+INTRO_LOGO = [
+    '-------------------------------------------------------------------------\n',
+    '  _________________ ____  _____      __  ______   _  _____  ____________ \n',
+    ' / ___/  _/_  __/ // / / / / _ )____/  |/  / _ | / |/ / _ |/ ___/ __/ _ \\\n',
+    '/ (_ // /  / / / _  / /_/ / _  /___/ /|_/ / __ |/    / __ / (_ / _// , _/\n',
+    '\___/___/ /_/ /_//_/\____/____/   /_/  /_/_/ |_/_/|_/_/ |_\___/___/_/|_| \n',
+    '-------------------------------------------------------------------------\n\n'
+]
+
 
 def print_input(stdscr):
-    stdscr.addstr('-------------------------------------------------------------------------\n')
-    stdscr.addstr('  _________________ ____  _____      __  ______   _  _____  ____________ \n')
-    stdscr.addstr(' / ___/  _/_  __/ // / / / / _ )____/  |/  / _ | / |/ / _ |/ ___/ __/ _ \\\n')
-    stdscr.addstr('/ (_ // /  / / / _  / /_/ / _  /___/ /|_/ / __ |/    / __ / (_ / _// , _/\n')
-    stdscr.addstr('\___/___/ /_/ /_//_/\____/____/   /_/  /_/_/ |_/_/|_/_/ |_\___/___/_/|_| \n')
-    stdscr.addstr('-------------------------------------------------------------------------\n\n')
+    h, w = stdscr.getmaxyx()
+
+    for idx, row in enumerate(INTRO_LOGO):
+        x = w//2 - len(row)//2
+        stdscr.addstr(idx, x, row, curses.color_pair(2))
 
     stdscr.addstr('GITHUB-MANAGER - is the simple Python terminal-based interactive application \n')
     stdscr.addstr('that allows you use GitHub REST API in order to ')
@@ -20,6 +28,20 @@ def print_input(stdscr):
     stdscr.addstr('Press any key to start...')
     stdscr.getch()
     stdscr.clear()
+
+
+def print_exit_text(stdscr):
+    stdscr.addstr('It seems you it is enough for now.\n')
+    stdscr.addstr('Well, hope you liked it and hope we will see again\n\n')
+
+    stdscr.addstr('It case of any issues, feel free to contact me - ')
+    stdscr.addstr('mikhail.bahdashych@protonmail.com\n\n', curses.color_pair(1))
+
+    stdscr.addstr('Print any key to exit...')
+
+    stdscr.getch()
+    stdscr.clear()
+    exit()
 
 
 def print_documentation():

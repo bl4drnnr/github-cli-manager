@@ -7,6 +7,7 @@ MENU = [
     'Documentation\n',
     'EXIT\n'
 ]
+AVAILABLE_ENDPOINTS = []
 MENU_LENGTH = len(MENU)
 
 
@@ -35,12 +36,13 @@ def navigate_menu(stdscr, current_row_idx):
         elif key == curses.KEY_DOWN and current_row_idx < MENU_LENGTH - 1:
             current_row_idx += 1
         elif key == curses.KEY_ENTER or key in [10, 13]:
+            if current_row_idx == MENU_LENGTH - 1:
+                prints.print_exit_text(stdscr)
+
             stdscr.clear()
             stdscr.addstr(f'You pressed {MENU[current_row_idx]}')
             stdscr.refresh()
             stdscr.getch()
-            if current_row_idx == MENU_LENGTH - 1:
-                exit()
 
         print_menu(stdscr, current_row_idx)
         stdscr.refresh()
