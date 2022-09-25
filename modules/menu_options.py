@@ -48,10 +48,6 @@ def navigate_menu(stdscr, current_row_idx):
             else:
                 print_exit_text(stdscr)
 
-            # stdscr.clear()
-            # stdscr.refresh()
-            # stdscr.getch()
-
         print_menu(stdscr, current_row_idx)
         stdscr.refresh()
 

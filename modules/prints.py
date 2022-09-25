@@ -56,40 +56,55 @@ def print_menu_description(stdscr):
 
 
 def print_documentation(stdscr):
-    print_logo(stdscr, 5)
+    x, y = stdscr.getmaxyx()
+    pad = curses.newpad(x, y)
+    pad_pos = 0
+    quit_docs = False
+    pad.refresh(pad_pos, 0, 0, 0, x, y)
 
-    stdscr.addstr('DOCUMENTATION\n\n', curses.A_BOLD)
-    stdscr.addstr('GitHub manager - being Python written terminal-based interactive application - provides users with\n', curses.A_BOLD)
-    stdscr.addstr('very simple opportunity to manage GitHub REST API using interactive shell\n\n', curses.A_BOLD)
+    print_logo(pad, 5)
 
-    stdscr.addstr('Below will be listed description to every possible menu option (basically, just GitHub REST API endpoint) of application.\n\n')
+    pad.addstr('DOCUMENTATION\n\n', curses.A_BOLD)
+    pad.addstr('GitHub manager - being Python written terminal-based interactive application - provides users with\n', curses.A_BOLD)
+    pad.addstr('very simple opportunity to manage GitHub REST API using interactive shell\n\n', curses.A_BOLD)
 
-    stdscr.addstr('Get organization\'s members', curses.color_pair(2))
-    stdscr.addstr(' - GET /orgs/{org}/members - List organization members\n', curses.A_BOLD)
-    stdscr.addstr('List all users who are members of an organization. If the authenticated user is also a member of this organization\n')
-    stdscr.addstr('then both concealed and public members will be returned.\n\n')
+    pad.addstr('Below will be listed description to every possible menu option (basically, just GitHub REST API endpoint) of application.\n\n')
 
-    stdscr.addstr('Get organization\'s member', curses.color_pair(2))
-    stdscr.addstr(' - GET /orgs/{org}/members/{username} - Check organization membership for a user\n', curses.A_BOLD)
-    stdscr.addstr('Check if a user is, publicly or privately, a member of the organization.\n\n')
+    pad.addstr('Get organization\'s members', curses.color_pair(2))
+    pad.addstr(' - GET /orgs/{org}/members - List organization members\n', curses.A_BOLD)
+    pad.addstr('List all users who are members of an organization. If the authenticated user is also a member of this organization\n')
+    pad.addstr('then both concealed and public members will be returned.\n\n')
 
-    stdscr.addstr('Get repository\'s collaborators', curses.color_pair(2))
-    stdscr.addstr(' - GET /repos/{owner}/{repo}/collaborators - List repository collaborators\n', curses.A_BOLD)
-    stdscr.addstr('For organization-owned repositories, the list of collaborators includes outside\n')
-    stdscr.addstr('collaborators, organization members that are direct collaborators, organization\n')
-    stdscr.addstr('members with access through team memberships, organization members with\n')
-    stdscr.addstr('access through default organization permissions, and organization owners.\n\n')
+    pad.addstr('Get organization\'s member', curses.color_pair(2))
+    pad.addstr(' - GET /orgs/{org}/members/{username} - Check organization membership for a user\n', curses.A_BOLD)
+    pad.addstr('Check if a user is, publicly or privately, a member of the organization.\n\n')
 
-    stdscr.addstr('Get repository\'s collaborator by username', curses.color_pair(2))
-    stdscr.addstr(' - GET /repos/{owner}/{repo}/collaborators/{username} - Check if a user is a repository collaborator\n', curses.A_BOLD)
-    stdscr.addstr('For organization-owned repositories, the list of collaborators includes outside\n')
-    stdscr.addstr('collaborators, organization members that are direct collaborators, organization\n')
-    stdscr.addstr('members with access through team memberships, organization members with\n')
-    stdscr.addstr('access through default organization permissions, and organization owners.\n\n')
+    pad.addstr('Get repository\'s collaborators', curses.color_pair(2))
+    pad.addstr(' - GET /repos/{owner}/{repo}/collaborators - List repository collaborators\n', curses.A_BOLD)
+    pad.addstr('For organization-owned repositories, the list of collaborators includes outside\n')
+    pad.addstr('collaborators, organization members that are direct collaborators, organization\n')
+    pad.addstr('members with access through team memberships, organization members with\n')
+    pad.addstr('access through default organization permissions, and organization owners.\n\n')
 
-    stdscr.addstr('\nReference: https://docs.github.com/en/rest/overview/endpoints-available-for-github-apps', curses.color_pair(1))
+    pad.addstr('Get repository\'s collaborator by username', curses.color_pair(2))
+    pad.addstr(' - GET /repos/{owner}/{repo}/collaborators/{username} - Check if a user is a repository collaborator\n', curses.A_BOLD)
+    pad.addstr('For organization-owned repositories, the list of collaborators includes outside\n')
+    pad.addstr('collaborators, organization members that are direct collaborators, organization\n')
+    pad.addstr('members with access through team memberships, organization members with\n')
+    pad.addstr('access through default organization permissions, and organization owners.\n\n')
 
-    stdscr.addstr('\n\nPress any key to continue...')
+    pad.addstr('\nReference: https://docs.github.com/en/rest/overview/endpoints-available-for-github-apps', curses.color_pair(1))
 
-    stdscr.getch()
-    stdscr.clear()
+    pad.addstr('\n\nPress ENTER to continue...')
+
+    while not quit_docs:
+        key = stdscr.getch()
+
+        if key == curses.KEY_DOWN:
+            pad_pos += 1
+            pad.refresh(pad_pos, 0, 0, 0, x, y)
+        elif key == curses.KEY_UP:
+            pad_pos -= 1
+            pad.refresh(pad_pos, 0, 0, 0, x, y)
+        elif key == curses.KEY_ENTER or key in [10, 13]:
+            quit_docs = True
