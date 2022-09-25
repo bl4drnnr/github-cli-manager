@@ -1,10 +1,7 @@
-import sys
-
 from curses import wrapper
 
 import menu_options
 import init_curses
-import args
 
 BASE_URL = 'https://api.github.com/'
 
@@ -20,7 +17,4 @@ def main(stdscr):
 
 
 if __name__ == '__main__':
-    if len(sys.argv[1:]) == 0:
-        wrapper(main)
-    else:
-        wrapper(args.get_input_args)
+    wrapper(main)

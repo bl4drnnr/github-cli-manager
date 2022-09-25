@@ -10,22 +10,26 @@ INTRO_LOGO = [
 ]
 
 
-def print_input(stdscr):
+def print_logo(stdscr):
     h, w = stdscr.getmaxyx()
 
     for idx, row in enumerate(INTRO_LOGO):
-        x = w//2 - len(row)//2
+        x = w // 2 - len(row) // 2
         stdscr.addstr(idx, x, row, curses.color_pair(2))
+
+
+def print_input(stdscr):
+    print_logo(stdscr)
 
     stdscr.addstr('GITHUB-MANAGER - is the simple Python terminal-based interactive application \n')
     stdscr.addstr('that allows you use GitHub REST API in order to ')
     stdscr.addstr('read/write/update users/repositories\n', curses.A_UNDERLINE)
     stdscr.addstr('of your private or organization GitHub account.\n\n')
 
-    stdscr.addstr('In order to see manual with documentation start program with --help or -h flag.\n')
-    stdscr.addstr('The other way to do that is chose documentation menu after start.\n\n')
+    stdscr.addstr('In order to see manual with documentation choose Documentation menu after start.\n\n')
 
     stdscr.addstr('Press any key to start...')
+
     stdscr.getch()
     stdscr.clear()
 
@@ -44,5 +48,7 @@ def print_exit_text(stdscr):
     exit()
 
 
-def print_documentation():
-    pass
+def print_documentation(stdscr):
+    print_logo(stdscr)
+    stdscr.addstr('Documentation\n')
+
