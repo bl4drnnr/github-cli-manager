@@ -1,3 +1,5 @@
+import json
+
 import requests
 import curses
 
@@ -26,7 +28,8 @@ def send_request(stdscr, token, endpoint, additional_options):
 
         request = requests.get(request_url, headers=headers)
         request.raise_for_status()
-        return request.content
-    except requests.exceptions.HTTPError as e:
+
+        return json.loads(request.text)
+    except Exception as e:
         stdscr.addstr(f'{str(e)}\n', curses.color_pair(3) | curses.A_BOLD)
         return
