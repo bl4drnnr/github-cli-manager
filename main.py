@@ -2,8 +2,7 @@ import curses
 
 from curses import wrapper
 
-import menu
-
+import menu_options
 
 BASE_URL = 'https://api.github.com/'
 
@@ -14,7 +13,7 @@ def main(stdscr):
 
     current_row_idx = 0
 
-    menu.print_menu(stdscr, current_row_idx)
+    menu_options.print_menu(stdscr, current_row_idx)
 
     while True:
         key = stdscr.getch()
@@ -22,17 +21,17 @@ def main(stdscr):
 
         if key == curses.KEY_UP and current_row_idx > 0:
             current_row_idx -= 1
-        elif key == curses.KEY_DOWN and current_row_idx < menu.MENU_LENGTH - 1:
+        elif key == curses.KEY_DOWN and current_row_idx < menu_options.MENU_LENGTH - 1:
             current_row_idx += 1
         elif key == curses.KEY_ENTER or key in [10, 13]:
             stdscr.clear()
-            stdscr.addstr(f'You pressed {menu.MENU[current_row_idx]}')
+            stdscr.addstr(f'You pressed {menu_options.MENU[current_row_idx]}')
             stdscr.refresh()
             stdscr.getch()
-            if current_row_idx == menu.MENU_LENGTH - 1:
+            if current_row_idx == menu_options.MENU_LENGTH - 1:
                 exit()
 
-        menu.print_menu(stdscr, current_row_idx)
+        menu_options.print_menu(stdscr, current_row_idx)
         stdscr.refresh()
 
 
