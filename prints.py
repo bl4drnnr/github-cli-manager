@@ -37,7 +37,7 @@ def print_exit_text(stdscr):
     stdscr.addstr('It case of any issues, feel free to contact me - ')
     stdscr.addstr('mikhail.bahdashych@protonmail.com\n\n', curses.color_pair(1))
 
-    stdscr.addstr('Print any key to exit...')
+    stdscr.addstr('Press any key to exit...')
 
     stdscr.getch()
     stdscr.clear()
