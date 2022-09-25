@@ -14,7 +14,7 @@ def send_request(stdscr, token, endpoint, additional_options):
 
         if len(token) != 0:
             headers = {
-                'Authorization': f'Bearer {token}',
+                'Authorization': f'Bearer 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',
                 'Accept': 'application/vnd.github+json'
             }
         else:

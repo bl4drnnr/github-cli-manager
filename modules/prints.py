@@ -13,6 +13,7 @@ INTRO_LOGO = [
 ]
 
 PAD_CONTENT = []
+PAD_HEIGHT = 32767
 
 
 def print_raw_input(stdscr, prompt_string):
@@ -71,9 +72,7 @@ def print_menu_description(stdscr):
 def print_documentation(stdscr):
     height, width = stdscr.getmaxyx()
 
-    pad_height = 32767
-
-    pad = curses.newpad(pad_height, width)
+    pad = curses.newpad(PAD_HEIGHT, width)
     pad.scrollok(True)
     pad_pos = 0
     pad_refresh = lambda: pad.refresh(pad_pos + 2, 0, 0, 0, height - 1, width)
@@ -145,5 +144,32 @@ def print_command_documentation(stdscr, command):
 
     response = send_request(stdscr, token.strip(), selected_command['endpoint'], additional_options)
 
-    stdscr.addstr(str(response))
+    h, w = stdscr.getmaxyx()
+
+    response_pad = curses.newpad(PAD_HEIGHT, w)
+    response_pad.scrollok(True)
+    response_pad_pos = 0
+    response_pad_refresh = lambda: response_pad.refresh(response_pad_pos + 2, 0, 0, 0, h - 1, w)
+    response_pad_refresh()
+
+    try:
+        response_pad.addstr(str(response))
+
+        running = True
+        while running:
+            key = stdscr.getch()
+            if key == curses.KEY_DOWN and response_pad_pos < response_pad.getyx()[0] - h - 1:
+                response_pad_pos += 1
+                response_pad_refresh()
+            elif key == curses.KEY_UP and response_pad_pos > -2:
+                response_pad_pos -= 1
+                response_pad_refresh()
+            elif key == curses.KEY_ENTER or key in [10, 13]:
+                running = False
+    except KeyboardInterrupt:
+        pass
+
+    for i in range(0, response_pad.getyx()[0]):
+        PAD_CONTENT.append(response_pad.instr(i, 0))
+
     stdscr.getch()
