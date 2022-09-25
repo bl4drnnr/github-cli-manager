@@ -10,16 +10,16 @@ INTRO_LOGO = [
 ]
 
 
-def print_logo(stdscr):
+def print_logo(stdscr, color_pair_id):
     h, w = stdscr.getmaxyx()
 
     for idx, row in enumerate(INTRO_LOGO):
         x = w // 2 - len(row) // 2
-        stdscr.addstr(idx, x, row, curses.color_pair(2))
+        stdscr.addstr(idx, x, row, curses.color_pair(color_pair_id))
 
 
 def print_input(stdscr):
-    print_logo(stdscr)
+    print_logo(stdscr, 2)
 
     stdscr.addstr('GITHUB-MANAGER - is the simple Python terminal-based interactive application \n')
     stdscr.addstr('that allows you use GitHub REST API in order to ')
@@ -35,13 +35,15 @@ def print_input(stdscr):
 
 
 def print_exit_text(stdscr):
-    stdscr.addstr('It seems you it is enough for now.\n')
-    stdscr.addstr('Well, hope you liked it and hope we will see again\n\n')
+    print_logo(stdscr, 4)
 
-    stdscr.addstr('It case of any issues, feel free to contact me - ')
+    stdscr.addstr('It seems you it is enough for now.\n', curses.color_pair(4))
+    stdscr.addstr('Well, hope you liked it and hope we will see again\n\n', curses.color_pair(4))
+
+    stdscr.addstr('It case of any issues, feel free to contact me - ', curses.color_pair(4))
     stdscr.addstr('mikhail.bahdashych@protonmail.com\n\n', curses.color_pair(1))
 
-    stdscr.addstr('Press any key to exit...')
+    stdscr.addstr('Press any key to exit...', curses.color_pair(4))
 
     stdscr.getch()
     stdscr.clear()
@@ -49,6 +51,10 @@ def print_exit_text(stdscr):
 
 
 def print_documentation(stdscr):
-    print_logo(stdscr)
+    print_logo(stdscr, 5)
+
     stdscr.addstr('Documentation\n')
+
+    stdscr.getch()
+    stdscr.clear()
 
