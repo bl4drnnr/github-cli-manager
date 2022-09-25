@@ -59,18 +59,14 @@ def print_documentation(stdscr):
     print_logo(stdscr, 5)
 
     stdscr.addstr('DOCUMENTATION\n\n', curses.A_BOLD)
-    stdscr.addstr(
-        'GitHub manager - being Python written terminal-based interactive application - provides users with\n',
-        curses.A_BOLD)
+    stdscr.addstr('GitHub manager - being Python written terminal-based interactive application - provides users with\n', curses.A_BOLD)
     stdscr.addstr('very simple opportunity to manage GitHub REST API using interactive shell\n\n', curses.A_BOLD)
 
-    stdscr.addstr(
-        'Below will be listed description to every possible menu option (basically, just GitHub REST API endpoint) of application.\n\n')
+    stdscr.addstr('Below will be listed description to every possible menu option (basically, just GitHub REST API endpoint) of application.\n\n')
 
     stdscr.addstr('Get organization\'s members', curses.color_pair(2))
     stdscr.addstr(' - GET /orgs/{org}/members - List organization members\n', curses.A_BOLD)
-    stdscr.addstr(
-        'List all users who are members of an organization. If the authenticated user is also a member of this organization\n')
+    stdscr.addstr('List all users who are members of an organization. If the authenticated user is also a member of this organization\n')
     stdscr.addstr('then both concealed and public members will be returned.\n\n')
 
     stdscr.addstr('Get organization\'s member', curses.color_pair(2))
@@ -85,9 +81,7 @@ def print_documentation(stdscr):
     stdscr.addstr('access through default organization permissions, and organization owners.\n\n')
 
     stdscr.addstr('Get repository\'s collaborator by username', curses.color_pair(2))
-    stdscr.addstr(
-        ' - GET /repos/{owner}/{repo}/collaborators/{username} - Check if a user is a repository collaborator\n',
-        curses.A_BOLD)
+    stdscr.addstr(' - GET /repos/{owner}/{repo}/collaborators/{username} - Check if a user is a repository collaborator\n', curses.A_BOLD)
     stdscr.addstr('For organization-owned repositories, the list of collaborators includes outside\n')
     stdscr.addstr('collaborators, organization members that are direct collaborators, organization\n')
     stdscr.addstr('members with access through team memberships, organization members with\n')
