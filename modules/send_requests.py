@@ -14,7 +14,7 @@ def send_request(stdscr, token, endpoint, additional_options):
 
         if len(token) != 0:
             headers = {
-                'Authorization': f'Bearer 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',
+                'Authorization': f'Bearer {token}',
                 'Accept': 'application/vnd.github+json'
             }
         else:
@@ -22,9 +22,11 @@ def send_request(stdscr, token, endpoint, additional_options):
                 'Accept': 'application/vnd.github+json'
             }
 
-        stdscr.addstr(f'\n\nSending request to {request_url}\n', curses.A_BOLD | curses.COLOR_GREEN)
+        stdscr.addstr(f'\n\nSending request to {request_url}\n', curses.color_pair(2))
 
-        data = requests.get(request_url, headers=headers)
-        return data.json()
-    except Exception as e:
-        raise Exception(e)
+        request = requests.get(request_url, headers=headers)
+        request.raise_for_status()
+        return request.content
+    except requests.exceptions.HTTPError as e:
+        stdscr.addstr(f'{str(e)}\n', curses.color_pair(3) | curses.A_BOLD)
+        return

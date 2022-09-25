@@ -131,45 +131,61 @@ def print_command_documentation(stdscr, command):
                     "If you want to access public entity, fill the input empty.\n\n" \
                     "Token: "
 
-    token = print_raw_input(stdscr, ask_for_token).lower()
+    token = print_raw_input(stdscr, ask_for_token)
 
     if '{org}' in selected_command['endpoint']:
         additional_options['{org}'] = print_raw_input(stdscr, 'Provide organization\'s name: ')
-    elif '{username}' in selected_command['endpoint']:
+    if '{username}' in selected_command['endpoint']:
         additional_options['{username}'] = print_raw_input(stdscr, 'Provide username: ')
-    elif '{owner}' in selected_command['endpoint']:
+    if '{owner}' in selected_command['endpoint']:
         additional_options['{owner}'] = print_raw_input(stdscr, 'Provide repository owner: ')
-    elif '{repo}' in selected_command['endpoint']:
+    if '{repo}' in selected_command['endpoint']:
         additional_options['{repo}'] = print_raw_input(stdscr, 'Provide repository name: ')
 
     response = send_request(stdscr, token.strip(), selected_command['endpoint'], additional_options)
 
-    h, w = stdscr.getmaxyx()
+    if response is not None:
 
-    response_pad = curses.newpad(PAD_HEIGHT, w)
-    response_pad.scrollok(True)
-    response_pad_pos = 0
-    response_pad_refresh = lambda: response_pad.refresh(response_pad_pos + 2, 0, 0, 0, h - 1, w)
-    response_pad_refresh()
+        stdscr.addstr('\nSUCCESS!', curses.color_pair(2) | curses.A_BOLD)
+        save_to_file = print_raw_input(stdscr, '\nSeems like we have data. Wanna save to file (otherwise data just will be printed)? [Y/N]: ')
+        save_to_file = save_to_file.strip()
 
-    try:
-        response_pad.addstr(str(response))
+        if save_to_file == 'y' or save_to_file == 'Y':
+            stdscr.addstr('\nDon\'t provide file format, only, it will be provided automatically as .txt.\n')
+            file_name = print_raw_input(stdscr, 'Provide file name: ')
+            f = open(f'{file_name.strip()}.txt', 'w')
+            f.write(str(response))
+            f.close()
+            stdscr.addstr('\nDone! Data has been written successfully!', curses.color_pair(2))
+        else:
+            h, w = stdscr.getmaxyx()
 
-        running = True
-        while running:
-            key = stdscr.getch()
-            if key == curses.KEY_DOWN and response_pad_pos < response_pad.getyx()[0] - h - 1:
-                response_pad_pos += 1
-                response_pad_refresh()
-            elif key == curses.KEY_UP and response_pad_pos > -2:
-                response_pad_pos -= 1
-                response_pad_refresh()
-            elif key == curses.KEY_ENTER or key in [10, 13]:
-                running = False
-    except KeyboardInterrupt:
-        pass
+            response_pad = curses.newpad(PAD_HEIGHT, w)
+            response_pad.scrollok(True)
+            response_pad_pos = 0
+            response_pad_refresh = lambda: response_pad.refresh(response_pad_pos + 2, 0, 0, 0, h - 1, w)
+            response_pad_refresh()
 
-    for i in range(0, response_pad.getyx()[0]):
-        PAD_CONTENT.append(response_pad.instr(i, 0))
+            try:
 
+                stdscr.addstr(str(response))
+
+                running = True
+                while running:
+                    key = stdscr.getch()
+                    if key == curses.KEY_DOWN and response_pad_pos < response_pad.getyx()[0] - h - 1:
+                        response_pad_pos += 1
+                        response_pad_refresh()
+                    elif key == curses.KEY_UP and response_pad_pos > -2:
+                        response_pad_pos -= 1
+                        response_pad_refresh()
+                    elif key == curses.KEY_ENTER or key in [10, 13]:
+                        running = False
+            except KeyboardInterrupt:
+                pass
+
+            for i in range(0, response_pad.getyx()[0]):
+                PAD_CONTENT.append(response_pad.instr(i, 0))
+
+    stdscr.addstr('\n\nPress any key to get back to menu...\n', curses.color_pair(4))
     stdscr.getch()

@@ -19,9 +19,15 @@ def print_menu(stdscr, current_row_idx):
     for idx, row in enumerate(MENU):
 
         if idx == current_row_idx:
-            stdscr.addstr(f' > {row}', curses.color_pair(1))
+            if row == 'Exit\n':
+                stdscr.addstr(f' > {row}', curses.color_pair(4))
+            else:
+                stdscr.addstr(f' > {row}', curses.color_pair(1))
         else:
-            stdscr.addstr(row)
+            if row == 'Exit\n':
+                stdscr.addstr(row, curses.color_pair(4))
+            else:
+                stdscr.addstr(row)
 
     stdscr.refresh()
 
