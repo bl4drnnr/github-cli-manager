@@ -1,11 +1,13 @@
 import curses
-from modules.prints import print_documentation, print_exit_text, print_input
+from modules.prints import print_documentation, print_exit_text, print_input, print_menu_description
 
 MENU = [
     'Get organization\'s members\n',
-    'Get organization\'s repositories\n',
+    'Get organization\'s member by username\n',
+    'Get repository\'s collaborators\n',
+    'Get repository\'s collaborator by username\n\n',
     'Documentation\n',
-    'EXIT\n'
+    'Exit\n'
 ]
 AVAILABLE_ENDPOINTS = []
 MENU_LENGTH = len(MENU)
@@ -14,12 +16,11 @@ MENU_LENGTH = len(MENU)
 def print_menu(stdscr, current_row_idx):
     stdscr.clear()
 
+    print_menu_description(stdscr)
     for idx, row in enumerate(MENU):
 
         if idx == current_row_idx:
-            stdscr.attron(curses.color_pair(1))
-            stdscr.addstr(f' > {row}')
-            stdscr.attroff(curses.color_pair(1))
+            stdscr.addstr(f' > {row}', curses.color_pair(1))
         else:
             stdscr.addstr(row)
 
