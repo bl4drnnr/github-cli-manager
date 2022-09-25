@@ -1,5 +1,5 @@
 import curses
-from modules.prints import print_documentation, print_exit_text, print_input, print_menu_description
+from modules.prints import print_documentation, print_exit_text, print_input, print_menu_description, print_command_documentation
 
 MENU = [
     'Get organization\'s members\n',
@@ -9,7 +9,6 @@ MENU = [
     'Documentation\n',
     'Exit\n'
 ]
-AVAILABLE_ENDPOINTS = []
 MENU_LENGTH = len(MENU)
 
 
@@ -37,16 +36,12 @@ def navigate_menu(stdscr, current_row_idx):
         elif key == curses.KEY_DOWN and current_row_idx < MENU_LENGTH - 1:
             current_row_idx += 1
         elif key == curses.KEY_ENTER or key in [10, 13]:
-            if MENU[current_row_idx] == 'Get organization\'s members\n':
-                pass
-            elif MENU[current_row_idx] == 'Get organization\'s repositories\n':
-                pass
+            if MENU[current_row_idx] == 'Exit\n':
+                print_exit_text(stdscr)
             elif MENU[current_row_idx] == 'Documentation\n':
                 print_documentation(stdscr)
-            elif MENU[current_row_idx] == 'EXIT\n':
-                print_exit_text(stdscr)
             else:
-                print_exit_text(stdscr)
+                print_command_documentation(stdscr, MENU[current_row_idx].split('\n')[0])
 
         print_menu(stdscr, current_row_idx)
         stdscr.refresh()

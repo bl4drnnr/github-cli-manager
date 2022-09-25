@@ -1,5 +1,8 @@
 import curses
 
+from modules.docs import docs_description
+from modules.send_requests import send_request
+
 INTRO_LOGO = [
     '+-------------------------------------------------------------------------+\n',
     '|  _________________ ____  _____      __  ______   _  _____  ____________ |\n',
@@ -10,6 +13,14 @@ INTRO_LOGO = [
 ]
 
 PAD_CONTENT = []
+
+
+def print_raw_input(stdscr, prompt_string):
+    curses.echo()
+    stdscr.addstr(prompt_string)
+    stdscr.refresh()
+    user_input = stdscr.getstr()
+    return user_input.decode('utf-8')
 
 
 def print_logo(stdscr, color_pair_id):
@@ -77,28 +88,13 @@ def print_documentation(stdscr):
 
         pad.addstr('Below will be listed description to every possible menu option (basically, just GitHub REST API endpoint) of application.\n\n')
 
-        pad.addstr('Get organization\'s members', curses.color_pair(2))
-        pad.addstr(' - GET /orgs/{org}/members - List organization members\n', curses.A_BOLD)
-        pad.addstr('List all users who are members of an organization. If the authenticated user is also a member of this organization\n')
-        pad.addstr('then both concealed and public members will be returned.\n\n')
-
-        pad.addstr('Get organization\'s member', curses.color_pair(2))
-        pad.addstr(' - GET /orgs/{org}/members/{username} - Check organization membership for a user\n', curses.A_BOLD)
-        pad.addstr('Check if a user is, publicly or privately, a member of the organization.\n\n')
-
-        pad.addstr('Get repository\'s collaborators', curses.color_pair(2))
-        pad.addstr(' - GET /repos/{owner}/{repo}/collaborators - List repository collaborators\n', curses.A_BOLD)
-        pad.addstr('For organization-owned repositories, the list of collaborators includes outside\n')
-        pad.addstr('collaborators, organization members that are direct collaborators, organization\n')
-        pad.addstr('members with access through team memberships, organization members with\n')
-        pad.addstr('access through default organization permissions, and organization owners.\n\n')
-
-        pad.addstr('Get repository\'s collaborator by username', curses.color_pair(2))
-        pad.addstr(' - GET /repos/{owner}/{repo}/collaborators/{username} - Check if a user is a repository collaborator\n', curses.A_BOLD)
-        pad.addstr('For organization-owned repositories, the list of collaborators includes outside\n')
-        pad.addstr('collaborators, organization members that are direct collaborators, organization\n')
-        pad.addstr('members with access through team memberships, organization members with\n')
-        pad.addstr('access through default organization permissions, and organization owners.\n\n')
+        for item, value in docs_description.items():
+            pad.addstr(item, curses.color_pair(2))
+            for idx, st in enumerate(value['description']):
+                if idx == 0:
+                    pad.addstr(st, curses.A_BOLD)
+                else:
+                    pad.addstr(st)
 
         pad.addstr('\nReference: https://docs.github.com/en/rest/overview/endpoints-available-for-github-apps', curses.color_pair(1))
 
@@ -120,3 +116,34 @@ def print_documentation(stdscr):
 
     for i in range(0, pad.getyx()[0]):
         PAD_CONTENT.append(pad.instr(i, 0))
+
+
+def print_command_documentation(stdscr, command):
+    print_logo(stdscr, 2)
+
+    selected_command = docs_description[command]
+    additional_options = {}
+
+    for item in selected_command['description']:
+        stdscr.addstr(item)
+
+    ask_for_token = "TIP: Check Developer Setting at your GitHub account, in order to check, if your token has access to resource\n" \
+                    "If something, you want to get, is private, but you have access, please, provide developer token.\n" \
+                    "If you want to access public entity, fill the input empty.\n\n" \
+                    "Token: "
+
+    token = print_raw_input(stdscr, ask_for_token).lower()
+
+    if '{org}' in selected_command['endpoint']:
+        additional_options['{org}'] = print_raw_input(stdscr, 'Provide organization\'s name: ')
+    elif '{username}' in selected_command['endpoint']:
+        additional_options['{username}'] = print_raw_input(stdscr, 'Provide username: ')
+    elif '{owner}' in selected_command['endpoint']:
+        additional_options['{owner}'] = print_raw_input(stdscr, 'Provide repository owner: ')
+    elif '{repo}' in selected_command['endpoint']:
+        additional_options['{repo}'] = print_raw_input(stdscr, 'Provide repository name: ')
+
+    response = send_request(stdscr, token.strip(), selected_command['endpoint'], additional_options)
+
+    stdscr.addstr(str(response))
+    stdscr.getch()

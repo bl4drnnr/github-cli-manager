@@ -1,9 +1,7 @@
 from curses import wrapper
 
-from modules.menu_options import print_introduction, print_menu, navigate_menu
+from modules.menu_navigator import print_introduction, print_menu, navigate_menu
 from modules.init_curses import init_curses_settings
-
-BASE_URL = 'https://api.github.com/'
 
 
 def main(stdscr):
