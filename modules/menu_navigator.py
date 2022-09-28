@@ -20,12 +20,12 @@ def print_menu(stdscr, current_row_idx):
 
         if idx == current_row_idx:
             if row == 'Exit\n':
-                stdscr.addstr(f' > {row}', curses.color_pair(4))
+                stdscr.addstr(f' > {row}', curses.color_pair(3))
             else:
                 stdscr.addstr(f' > {row}', curses.color_pair(1))
         else:
             if row == 'Exit\n':
-                stdscr.addstr(row, curses.color_pair(4))
+                stdscr.addstr(row, curses.color_pair(3))
             else:
                 stdscr.addstr(row)
 

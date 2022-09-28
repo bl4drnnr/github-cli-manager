@@ -83,7 +83,7 @@ def print_exit_text(stdscr):
 
 def print_menu_description(stdscr):
     print_logo(stdscr, 2)
-    stdscr.addstr('So, žwhat are we gonna do now?\n\n\n', curses.color_pair(1))
+    stdscr.addstr('So, what are we gonna do now?\n\n\n', curses.color_pair(1))
 
 
 def print_documentation(stdscr):
