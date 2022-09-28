@@ -12,13 +12,30 @@ INTRO_LOGO = [
     '+-------------------------------------------------------------------------+\n\n'
 ]
 
-PAD_CONTENT = []
 PAD_HEIGHT = 32767
+
+
+def pad_refresh(pad, pad_pos, height, width):
+    pad.refresh(pad_pos, 0, 0, 0, height - 1, width)
+
+
+def movement_control(pad, pad_pos, height, width):
+    pad_refresh(pad, pad_pos, height, width)
+
+    key_up, key_down = 'AB'
+    y = 0
+
+    for c in iter(pad.getkey, 'q'):
+        if c in '\x1b\x5b':
+            continue
+        y -= (c == key_up)
+        y += (c == key_down)
+        pad_refresh(pad, y, height, width)
 
 
 def print_raw_input(stdscr, prompt_string):
     curses.echo()
-    stdscr.addstr(prompt_string)
+    stdscr.addstr(prompt_string, curses.A_BOLD)
     stdscr.refresh()
     user_input = stdscr.getstr()
     return user_input.decode('utf-8')
@@ -66,55 +83,34 @@ def print_exit_text(stdscr):
 
 def print_menu_description(stdscr):
     print_logo(stdscr, 2)
-    stdscr.addstr('So, what are we gonna do now?\n\n\n', curses.color_pair(1))
+    stdscr.addstr('So, žwhat are we gonna do now?\n\n\n', curses.color_pair(1))
 
 
 def print_documentation(stdscr):
     height, width = stdscr.getmaxyx()
-
-    pad = curses.newpad(PAD_HEIGHT, width)
-    pad.scrollok(True)
     pad_pos = 0
-    pad_refresh = lambda: pad.refresh(pad_pos + 2, 0, 0, 0, height - 1, width)
-    pad_refresh()
+    pad = curses.newpad(PAD_HEIGHT, width)
 
-    try:
-        print_logo(pad, 5)
+    print_logo(pad, 5)
 
-        pad.addstr('DOCUMENTATION\n\n', curses.A_BOLD)
-        pad.addstr('GitHub manager - being Python written terminal-based interactive application - provides users with\n', curses.A_BOLD)
-        pad.addstr('very simple opportunity to manage GitHub REST API using interactive shell\n\n', curses.A_BOLD)
+    pad.addstr('DOCUMENTATION\n\n', curses.A_BOLD)
+    pad.addstr('GitHub manager - being Python written terminal-based interactive application - provides users with\n', curses.A_BOLD)
+    pad.addstr('very simple opportunity to manage GitHub REST API using interactive shell\n\n', curses.A_BOLD)
 
-        pad.addstr('Below will be listed description to every possible menu option (basically, just GitHub REST API endpoint) of application.\n\n')
+    pad.addstr('Below will be listed description to every possible menu option (basically, just GitHub REST API endpoint) of application.\n\n')
 
-        for item, value in docs_description.items():
-            pad.addstr(item, curses.color_pair(2))
-            for idx, st in enumerate(value['description']):
-                if idx == 0:
-                    pad.addstr(st, curses.A_BOLD)
-                else:
-                    pad.addstr(st)
+    for item, value in docs_description.items():
+        pad.addstr(item, curses.color_pair(2))
+        for idx, st in enumerate(value['description']):
+            if idx == 0:
+                pad.addstr(st, curses.A_BOLD)
+            else:
+                pad.addstr(st)
 
-        pad.addstr('\nReference: https://docs.github.com/en/rest/overview/endpoints-available-for-github-apps', curses.color_pair(1))
+    pad.addstr('\nReference: https://docs.github.com/en/rest/overview/endpoints-available-for-github-apps', curses.color_pair(1))
 
-        pad.addstr('\n\nPress ENTER to continue...')
-
-        running = True
-        while running:
-            key = stdscr.getch()
-            if key == curses.KEY_DOWN and pad_pos < pad.getyx()[0] - height - 1:
-                pad_pos += 1
-                pad_refresh()
-            elif key == curses.KEY_UP and pad_pos > -2:
-                pad_pos -= 1
-                pad_refresh()
-            elif key == curses.KEY_ENTER or key in [10, 13]:
-                running = False
-    except KeyboardInterrupt:
-        pass
-
-    for i in range(0, pad.getyx()[0]):
-        PAD_CONTENT.append(pad.instr(i, 0))
+    pad.addstr('\n\nPress Q to get back...')
+    movement_control(pad, pad_pos, height, width)
 
 
 def print_command_documentation(stdscr, command):
@@ -126,12 +122,12 @@ def print_command_documentation(stdscr, command):
     for item in selected_command['description']:
         stdscr.addstr(item)
 
-    ask_for_token = "TIP: Check Developer Setting at your GitHub account, in order to check, if your token has access to resource\n" \
-                    "If something, you want to get, is private, but you have access, please, provide developer token.\n" \
-                    "If you want to access public entity, fill the input empty.\n\n" \
-                    "Token: "
+    stdscr.addstr('TIP: ', curses.A_BOLD)
+    stdscr.addstr('Check Developer Setting at your GitHub account, in order to check, if your token has access to resource.\n')
+    stdscr.addstr('If something, you want to get, is private, but you have access, please, provide developer token.\n')
+    stdscr.addstr('If you want to access public entity, fill the input empty.\n\n')
 
-    token = print_raw_input(stdscr, ask_for_token)
+    token = print_raw_input(stdscr, "Token: ")
 
     if '{org}' in selected_command['endpoint']:
         additional_options['{org}'] = print_raw_input(stdscr, 'Provide organization\'s name: ')
@@ -158,34 +154,15 @@ def print_command_documentation(stdscr, command):
             f.close()
             stdscr.addstr('\nDone! Data has been written successfully!', curses.color_pair(2))
         else:
-            h, w = stdscr.getmaxyx()
+            height, width = stdscr.getmaxyx()
+            pad_pos = 0
+            pad = curses.newpad(PAD_HEIGHT, width)
 
-            response_pad = curses.newpad(PAD_HEIGHT, w)
-            response_pad.scrollok(True)
-            response_pad_pos = 0
-            response_pad_refresh = lambda: response_pad.refresh(response_pad_pos + 2, 0, 0, 0, h - 1, w)
-            response_pad_refresh()
+            print_logo(pad, 5)
 
-            try:
+            stdscr.addstr(str(response))
 
-                stdscr.addstr(str(response))
-
-                running = True
-                while running:
-                    key = stdscr.getch()
-                    if key == curses.KEY_DOWN and response_pad_pos < response_pad.getyx()[0] - h - 1:
-                        response_pad_pos += 1
-                        response_pad_refresh()
-                    elif key == curses.KEY_UP and response_pad_pos > -2:
-                        response_pad_pos -= 1
-                        response_pad_refresh()
-                    elif key == curses.KEY_ENTER or key in [10, 13]:
-                        running = False
-            except KeyboardInterrupt:
-                pass
-
-            for i in range(0, response_pad.getyx()[0]):
-                PAD_CONTENT.append(response_pad.instr(i, 0))
+            movement_control(pad, pad_pos, height, width)
 
     stdscr.addstr('\n\nPress any key to get back to menu...\n', curses.color_pair(4))
     stdscr.getch()
