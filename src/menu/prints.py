@@ -107,7 +107,10 @@ def print_documentation(stdscr):
             else:
                 pad.addstr(st)
 
-    pad.addstr('\nReference: https://docs.github.com/en/rest/overview/endpoints-available-for-github-apps', curses.color_pair(1))
+    pad.addstr('\nReference: https://docs.github.com/en/rest/overview/endpoints-available-for-github-apps\n\n', curses.color_pair(1))
+
+    pad.addstr('In case of any issues fell free to ask any questions - ')
+    pad.addstr('mikhail.bahdashych@prontonmail.com', curses.color_pair(1))
 
     pad.addstr('\n\nPress Q to get back...')
     movement_control(pad, pad_pos, height, width)
@@ -119,8 +122,11 @@ def print_command_documentation(stdscr, command):
     selected_command = docs_description[command]
     additional_options = {}
 
-    for item in selected_command['description']:
-        stdscr.addstr(item)
+    for idx, item in enumerate(selected_command['description']):
+        if idx == 0:
+            stdscr.addstr(item, curses.color_pair(2) | curses.A_BOLD)
+        else:
+            stdscr.addstr(item)
 
     stdscr.addstr('TIP: ', curses.A_BOLD)
     stdscr.addstr('Check Developer Setting at your GitHub account, in order to check, if your token has access to resource.\n')
