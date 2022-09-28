@@ -1,5 +1,5 @@
 import curses
-from modules.prints import print_documentation, print_exit_text, print_input, print_menu_description, print_command_documentation
+from src.menu.prints import print_documentation, print_exit_text, print_input, print_menu_description, print_command_documentation
 
 MENU = [
     'Get organization\'s members\n',

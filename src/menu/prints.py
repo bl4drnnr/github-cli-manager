@@ -1,7 +1,7 @@
 import curses
 
-from modules.docs import docs_description
-from modules.send_requests import send_request
+from src.api.docs import docs_description
+from src.api.fetch_data import send_request
 
 INTRO_LOGO = [
     '+-------------------------------------------------------------------------+\n',
