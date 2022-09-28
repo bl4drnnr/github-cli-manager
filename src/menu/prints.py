@@ -144,12 +144,23 @@ def print_command_documentation(stdscr, command):
     if '{repo}' in selected_command['endpoint']:
         additional_options['{repo}'] = print_raw_input(stdscr, 'Provide repository name: ')
 
-    response = send_request(stdscr, token.strip(), selected_command['endpoint'], additional_options)
+    if 'Get' in command:
+        method = 'GET'
+    elif 'Post' in command:
+        method = 'POST'
+    elif 'Delete' in command:
+        method = 'DELETE'
+    elif 'Put' in command:
+        method = 'PUT'
+    else:
+        method = 'PATCH'
+
+    response = send_request(stdscr, selected_command['endpoint'], additional_options, method, token.strip())
 
     if response is not None:
 
         stdscr.addstr('\nSUCCESS!', curses.color_pair(2) | curses.A_BOLD)
-        save_to_file = print_raw_input(stdscr, '\nSeems like we have data. Wanna save to file (otherwise data just will be printed)? [Y/N]: ')
+        save_to_file = print_raw_input(stdscr, '\nSeems like we did it. Wanna save to file (otherwise data just will be printed)? [Y/N]: ')
         save_to_file = save_to_file.strip()
 
         if save_to_file == 'y' or save_to_file == 'Y':
