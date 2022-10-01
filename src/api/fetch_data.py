@@ -6,7 +6,7 @@ import curses
 BASE_URL = 'https://api.github.com'
 
 
-def send_request(stdscr, endpoint, additional_options, method, token='', body={}):
+def send_request(stdscr, endpoint, additional_options, method, token, body=None):
     try:
 
         for item, value in additional_options.items():

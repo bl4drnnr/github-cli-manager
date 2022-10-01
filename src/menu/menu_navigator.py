@@ -6,6 +6,9 @@ MENU = [
     'Get organization\'s member by username\n',
     'Get repository\'s collaborators\n',
     'Get repository\'s collaborator by username\n\n',
+    'Create a pull request\n\n',
+    'Create a repository\n',
+    'Delete a repository\n\n',
     'Documentation\n',
     'Exit\n'
 ]

@@ -11,8 +11,13 @@ INTRO_LOGO = [
     '|\___/___/ /_/ /_//_/\____/____/   /_/  /_/_/ |_/_/|_/_/ |_\___/___/_/|_| |\n',
     '+-------------------------------------------------------------------------+\n\n'
 ]
-
 PAD_HEIGHT = 32767
+PARAM_DICTIONARY = {
+    '{org}': 'Provide organization\'s name: ',
+    '{username}': 'Provide username: ',
+    '{owner}': 'Provide repository owner: ',
+    '{repo}': 'Provide repository name: ',
+}
 
 
 def pad_refresh(pad, pad_pos, height, width):
@@ -121,6 +126,7 @@ def print_command_documentation(stdscr, command):
 
     selected_command = docs_description[command]
     additional_options = {}
+    body = {}
 
     for idx, item in enumerate(selected_command['description']):
         if idx == 0:
@@ -135,32 +141,25 @@ def print_command_documentation(stdscr, command):
 
     token = print_raw_input(stdscr, "Token: ")
 
-    if '{org}' in selected_command['endpoint']:
-        additional_options['{org}'] = print_raw_input(stdscr, 'Provide organization\'s name: ')
-    if '{username}' in selected_command['endpoint']:
-        additional_options['{username}'] = print_raw_input(stdscr, 'Provide username: ')
-    if '{owner}' in selected_command['endpoint']:
-        additional_options['{owner}'] = print_raw_input(stdscr, 'Provide repository owner: ')
-    if '{repo}' in selected_command['endpoint']:
-        additional_options['{repo}'] = print_raw_input(stdscr, 'Provide repository name: ')
+    parameters_parsed_url = selected_command['endpoint'].split('/')
+    for param in parameters_parsed_url:
+        if '{' in param:
+            for parameter, description in PARAM_DICTIONARY.items():
+                if parameter == param:
+                    additional_options[param] = print_raw_input(stdscr, description)
 
-    if 'Get' in command:
-        method = 'GET'
-    elif 'Post' in command:
-        method = 'POST'
-    elif 'Delete' in command:
-        method = 'DELETE'
-    elif 'Put' in command:
-        method = 'PUT'
-    else:
-        method = 'PATCH'
+    method = selected_command['method']
 
-    response = send_request(stdscr, selected_command['endpoint'], additional_options, method, token.strip())
+    if selected_command['payload'] is not None:
+        for item in selected_command['payload']:
+            body[item] = print_raw_input(stdscr, f'Please, set {item}: ')
+
+    response = send_request(stdscr, selected_command['endpoint'], additional_options, method, token.strip(), body)
 
     if response is not None:
 
         stdscr.addstr('\nSUCCESS!', curses.color_pair(2) | curses.A_BOLD)
-        save_to_file = print_raw_input(stdscr, '\nSeems like we did it. Wanna save to file (otherwise data just will be printed)? [Y/N]: ')
+        save_to_file = print_raw_input(stdscr, '\nSeems like we did it. Wanna save result to file (otherwise data just will be printed)? [Y/N]: ')
         save_to_file = save_to_file.strip()
 
         if save_to_file == 'y' or save_to_file == 'Y':
