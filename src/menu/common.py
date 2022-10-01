@@ -14,12 +14,16 @@ PARAM_DICTIONARY = {
     '{username}': 'Provide username: ',
     '{owner}': 'Provide repository owner: ',
     '{repo}': 'Provide repository name: ',
+    '{pull_number}': 'Provide number that identifies the pull request: ',
     'title': 'Set title: ',
     'body': 'Set body: ',
-    'base': 'Set base: ',
-    'head': 'Set head: ',
-    'state': 'Set state: ',
+    'base': 'Set base branch: ',
+    'head': 'Set head branch: ',
+    'state': 'Set state of pull request: ',
     'description': 'Set description: ',
     'homepage': 'Set homepage: ',
-    'private': 'Is private? [Y/N]: '
+    'private': 'Is private? [Y/N]: ',
+    'commit_title': 'Provide title for automatic commit message: ',
+    'commit_message': 'Provide extra detail to append to automatic commit message: ',
+    'merge_method': 'Provide merge method to use. Possible values are merge, squash or rebase (default is merge): '
 }

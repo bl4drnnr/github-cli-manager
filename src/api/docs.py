@@ -114,6 +114,31 @@ docs_description = {
             'optional': ['title', 'body', 'state']
         }
     },
+    'Merge a pull request': {
+        'endpoint': '/repos/{owner}/{repo}/pulls/{pull_number}/merge',
+        'description': [
+            ' - PUT /repos/{owner}/{repo}/pulls/{pull_number}/merge - Merge a pull request.\n',
+            'This endpoint triggers notifications. Creating content too quickly using this\n',
+            'endpoint may result in secondary rate limiting. See "Secondary rate limits" and\n',
+            '"Dealing with secondary rate limits" for details.\n\n'
+        ],
+        'params_description': {
+            'path_params': [
+                ' - owner: string (required) - The account owner of the repository. The name is not case-sensitive.\n',
+                ' - repo: string (required) - The name of the repository. The name is not case-sensitive.\n',
+                ' - pull_number: integer (required) - The number that identifies the pull request.\n'
+            ],
+            'body_params': [
+                ' - commit title: string - Title for the automatic commit message.\n',
+                ' - commit message: string - Extra detail to append to automatic commit message.\n',
+                ' - merge method: string - Merge method to use. Possible values are merge, squash or rebase. Default is merge.'
+            ]
+        },
+        'method': 'PUT',
+        'payload': {
+            'optional': ['commit_title', 'commit_message', 'merge_method']
+        }
+    },
     'Create a repository': {
         'endpoint': '/user/repos',
         'description': [
