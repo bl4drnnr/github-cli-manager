@@ -182,7 +182,7 @@ def print_command_documentation(stdscr, command):
 
             print_logo(pad, 5)
 
-            stdscr.addstr(str(response))
+            pad.addstr(str(response))
 
             movement_control(pad, pad_pos, height, width)
 

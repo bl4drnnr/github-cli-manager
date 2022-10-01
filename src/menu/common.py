@@ -7,7 +7,7 @@ INTRO_LOGO = [
     '+-------------------------------------------------------------------------+\n\n'
 ]
 
-PAD_HEIGHT = 32767
+PAD_HEIGHT = 16384
 
 PARAM_DICTIONARY = {
     '{org}': 'Provide organization\'s name: ',
