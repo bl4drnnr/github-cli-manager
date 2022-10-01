@@ -97,6 +97,14 @@ def print_documentation(stdscr):
                 pad.addstr(st, curses.A_BOLD)
             else:
                 pad.addstr(st)
+        for description_key, description_value in value['params_description'].items():
+            if description_key == 'path_params':
+                pad.addstr('Path parameters:\n')
+            else:
+                pad.addstr('Body parameters:\n')
+            for path_param in description_value:
+                pad.addstr(path_param)
+        pad.addstr('\n##############################\n\n')
 
     pad.addstr('\nReference: https://docs.github.com/en/rest/overview/endpoints-available-for-github-apps\n\n', curses.color_pair(1))
 
