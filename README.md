@@ -121,6 +121,8 @@ In order to specify the repository information, optional parameters could be set
 
 - `name`: string - **required** - The name of the repository.
 - `description`: string - A short description of the repository.
+- `homepage`: string - A URL with more information about the repository.
+- `private`: boolean - Whether the repository is private.
 
 ---
 
