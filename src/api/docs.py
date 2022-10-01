@@ -48,7 +48,10 @@ docs_description = {
             'update a pull request.\n\n'
         ],
         'method': 'POST',
-        'payload': ['title', 'body', 'head', 'base']
+        'payload': {
+            'required': ['head', 'base'],
+            'optional': ['title', 'body']
+        }
     },
     'Update a pull request': {
         'endpoint': '/repos/{owner}/{repo}/pulls/{pull_number}',
@@ -59,7 +62,10 @@ docs_description = {
             'you must be a member of the organization that owns the repository to open or\n',
             'update a pull request.\n\n'
         ],
-        'method': 'PATCH'
+        'method': 'PATCH',
+        'payload': {
+            'optional': ['title', 'body', 'state']
+        }
     },
     'Create a repository': {
         'endpoint': '/user/repos',
@@ -68,7 +74,10 @@ docs_description = {
             'In order to specify the repository information, optional parameters could be set.\n\n'
         ],
         'method': 'POST',
-        'payload': ['name']
+        'payload': {
+            'required': ['title'],
+            'optional': ['description', 'homepage', 'private']
+        }
     },
     'Delete a repository': {
         'endpoint': '/repos/{owner}/{repo}',
