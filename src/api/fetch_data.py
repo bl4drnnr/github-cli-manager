@@ -40,7 +40,10 @@ def send_request(stdscr, endpoint, additional_options, method, token, body=None)
 
         request.raise_for_status()
 
-        return json.loads(request.text)
+        if request.status_code != 204:
+            json_object = json.loads(request.text)
+            json_formatted_str = json.dumps(json_object, indent=2)
+            return json_formatted_str
     except requests.exceptions.RequestException as e:
         error_message = e.response.json()
         stdscr.addstr(f'{error_message["message"]}\n', curses.color_pair(3) | curses.A_BOLD)
