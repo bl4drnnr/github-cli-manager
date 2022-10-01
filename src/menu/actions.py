@@ -3,21 +3,7 @@ import curses
 from src.api.docs import docs_description
 from src.api.fetch_data import send_request
 
-INTRO_LOGO = [
-    '+-------------------------------------------------------------------------+\n',
-    '|  _________________ ____  _____      __  ______   _  _____  ____________ |\n',
-    '| / ___/  _/_  __/ // / / / / _ )____/  |/  / _ | / |/ / _ |/ ___/ __/ _ \\|\n',
-    '|/ (_ // /  / / / _  / /_/ / _  /___/ /|_/ / __ |/    / __ / (_ / _// , _/|\n',
-    '|\___/___/ /_/ /_//_/\____/____/   /_/  /_/_/ |_/_/|_/_/ |_\___/___/_/|_| |\n',
-    '+-------------------------------------------------------------------------+\n\n'
-]
-PAD_HEIGHT = 32767
-PARAM_DICTIONARY = {
-    '{org}': 'Provide organization\'s name: ',
-    '{username}': 'Provide username: ',
-    '{owner}': 'Provide repository owner: ',
-    '{repo}': 'Provide repository name: ',
-}
+from src.menu.common import INTRO_LOGO, PAD_HEIGHT, PARAM_DICTIONARY
 
 
 def pad_refresh(pad, pad_pos, height, width):
@@ -111,6 +97,14 @@ def print_documentation(stdscr):
                 pad.addstr(st, curses.A_BOLD)
             else:
                 pad.addstr(st)
+        for description_key, description_value in value['params_description'].items():
+            if description_key == 'path_params':
+                pad.addstr('Path parameters:\n')
+            else:
+                pad.addstr('Body parameters:\n')
+            for path_param in description_value:
+                pad.addstr(path_param)
+        pad.addstr('\n##############################\n\n')
 
     pad.addstr('\nReference: https://docs.github.com/en/rest/overview/endpoints-available-for-github-apps\n\n', curses.color_pair(1))
 
@@ -150,9 +144,21 @@ def print_command_documentation(stdscr, command):
 
     method = selected_command['method']
 
-    if selected_command['payload'] is not None:
-        for item in selected_command['payload']:
-            body[item] = print_raw_input(stdscr, f'Please, set {item}: ')
+    set_params = []
+    if 'payload' in selected_command:
+        for key, value in selected_command['payload'].items():
+            set_params.append(key)
+
+    for kind_of_params in set_params:
+        if kind_of_params == 'required':
+            stdscr.addstr('\nPlease, set all required body parameters in order to continue.\n', curses.A_BOLD)
+        elif kind_of_params == 'optional':
+            stdscr.addstr('\nSet optional parameters, if you want.\n', curses.A_BOLD)
+
+        for param_to_set in selected_command['payload'][kind_of_params]:
+            for param_key, param_value in PARAM_DICTIONARY.items():
+                if param_to_set == param_key:
+                    body[param_to_set] = print_raw_input(stdscr, param_value)
 
     response = send_request(stdscr, selected_command['endpoint'], additional_options, method, token.strip(), body)
 

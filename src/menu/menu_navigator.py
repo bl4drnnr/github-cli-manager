@@ -1,12 +1,13 @@
 import curses
-from src.menu.prints import print_documentation, print_exit_text, print_input, print_menu_description, print_command_documentation
+from src.menu.actions import print_documentation, print_exit_text, print_input, print_menu_description, print_command_documentation
 
 MENU = [
     'Get organization\'s members\n',
     'Get organization\'s member by username\n',
     'Get repository\'s collaborators\n',
     'Get repository\'s collaborator by username\n\n',
-    'Create a pull request\n\n',
+    'Create a pull request\n',
+    'Update a pull request\n\n',
     'Create a repository\n',
     'Delete a repository\n\n',
     'Documentation\n',
