@@ -183,8 +183,10 @@ def print_command_documentation(stdscr, command):
             print_logo(pad, 5)
 
             pad.addstr(str(response))
+            pad.addstr('\n\nPress Q to get back to menu...')
 
             movement_control(pad, pad_pos, height, width)
+            return
 
     stdscr.addstr('\n\nPress any key to get back to menu...\n', curses.color_pair(4))
     stdscr.getch()
