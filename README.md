@@ -24,7 +24,7 @@ Below will be listed description to every possible menu option (basically, just 
 List all users who are members of an organization. If the authenticated user is also a member of this organization
 then both concealed and public members will be returned.
 
-**Get organization's member**
+**Get organization's member by username**
  - **GET /orgs/{org}/members/{username}** - Check organization membership for a user
 Check if a user is, publicly or privately, a member of the organization.
 
@@ -42,6 +42,27 @@ collaborators, organization members that are direct collaborators, organization
 members with access through team memberships, organization members with
 access through default organization permissions, and organization owners.
 
+**Create a pull request**
+- **POST /repos/{owner}/{repo}/pulls** - Draft pull requests are available in public repositories
+To open or update a pull request in a public repository, you must have write
+access to the head or the source branch. For organization-owned repositories,
+you must be a member of the organization that owns the repository to open or
+update a pull request.
+
+**Update a pull request**
+- **PATCH /repos/{owner}/{repo}/pulls/{pull_number}** - Draft pull requests are available in public repositories
+To open or update a pull request in a public repository, you must have write
+access to the head or the source branch. For organization-owned repositories,
+you must be a member of the organization that owns the repository to open or
+update a pull request.
+
+**Create a repository**
+- **POST /user/repos** - Create a new repository for the authenticated user.
+In order to specify the repository information, optional parameters could be set.
+
+**Delete a repository**
+- **DELETE /repos/{owner}/{repo}** - Deleting a repository requires admin access. If OAuth is used, the delete_repo scope is required.
+If an organization owner has configured the organization to prevent members from deleting organization-owned repositories, you will get a 403 Forbidden response.
 
 ### Reference:
 
