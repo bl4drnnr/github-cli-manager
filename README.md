@@ -113,6 +113,26 @@ update a pull request.
 
 ---
 
+**Merge a pull request**
+- **PUT /repos/{owner}/{repo}/pulls/{pull_number}/merge** - Merge a pull request.
+This endpoint triggers notifications. Creating content too quickly using this
+endpoint may result in secondary rate limiting. See "Secondary rate limits" and
+"Dealing with secondary rate limits" for details.
+
+`Path parameters:`
+
+- `owner`: string - **required** - The account owner of the repository. The name is not case-sensitive.
+- `repo`: string - **required** - The name of the repository. The name is not case-sensitive.
+- `pull_number`: integer - **required** - The number that identifies the pull request.
+
+`Body parameters:`
+
+- `commit title`: string - Title for the automatic commit message.
+- `commit message`: string - Extra detail to append to automatic commit message.
+- `merge method`: string - Merge method to use. Possible values are merge, squash or rebase. Default is merge.
+
+---
+
 **Create a repository**
 - **POST /user/repos** - Create a new repository for the authenticated user.
 In order to specify the repository information, optional parameters could be set.
