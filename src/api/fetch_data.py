@@ -26,20 +26,22 @@ def send_request(stdscr, endpoint, additional_options, method, token, body=None)
 
         stdscr.addstr(f'\n\nSending {method} request to {request_url}\n', curses.color_pair(2))
 
+        json_body = json.dumps(body)
         if method == 'GET':
             request = requests.get(request_url, headers=headers)
         elif method == 'POST':
-            request = requests.post(request_url, headers=headers)
+            request = requests.post(request_url, headers=headers, data=json_body)
         elif method == 'DELETE':
-            request = requests.delete(request_url, headers=headers)
+            request = requests.delete(request_url, headers=headers, data=json_body)
         elif method == 'PUT':
-            request = requests.put(request_url, headers=headers)
+            request = requests.put(request_url, headers=headers, data=json_body)
         else:
-            request = requests.patch(request_url, headers=headers)
+            request = requests.patch(request_url, headers=headers, data=json_body)
 
         request.raise_for_status()
 
         return json.loads(request.text)
-    except Exception as e:
-        stdscr.addstr(f'{str(e)}\n', curses.color_pair(3) | curses.A_BOLD)
+    except requests.exceptions.RequestException as e:
+        error_message = e.response.json()
+        stdscr.addstr(f'{error_message["message"]}\n', curses.color_pair(3) | curses.A_BOLD)
         return
