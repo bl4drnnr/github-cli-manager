@@ -161,4 +161,4 @@ If an organization owner has configured the organization to prevent members from
 
 For more see [GitHub available endpoints list](https://docs.github.com/en/rest/overview/endpoints-available-for-github-apps)
 
-Developer contact - [mikhail.bahdashych@protonmail.com](mailto:mikhail.bahdashych@protonmail.com)
+Developer contact - [bl4drnnr@protonmail.com](mailto:bl4drnnr@protonmail.com)
