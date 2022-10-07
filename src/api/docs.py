@@ -117,7 +117,7 @@ docs_description = {
     'Merge a pull request': {
         'endpoint': '/repos/{owner}/{repo}/pulls/{pull_number}/merge',
         'description': [
-            ' - PUT /repos/{owner}/{repo}/pulls/{pull_number}/merge - Merge a pull request.\n',
+            ' - PUT /repos/{owner}/{repo}/pulls/{pull_number}/merge - Merge a pull request\n',
             'This endpoint triggers notifications. Creating content too quickly using this\n',
             'endpoint may result in secondary rate limiting. See "Secondary rate limits" and\n',
             '"Dealing with secondary rate limits" for details.\n\n'
@@ -142,7 +142,7 @@ docs_description = {
     'Create a repository': {
         'endpoint': '/user/repos',
         'description': [
-            ' - POST /user/repos - Create a new repository for the authenticated user.\n',
+            ' - POST /user/repos - Create a new repository for the authenticated user\n',
             'In order to specify the repository information, optional parameters could be set.\n\n'
         ],
         'params_description': {
