@@ -3,10 +3,11 @@ import argparse
 
 def setup_option_parser(argv):
     parser = argparse.ArgumentParser(add_help=False)
-    parser.add_argument('--help',
+    parser.add_argument('-h', '--help',
                         action='help',
                         help='Display this message.')
     parser.add_argument('--token',
+                        dest='GITHUB_TOKEN',
                         help='GitHub developer token.')
     parser.add_argument('--gom',
                         help='List organization members.')
