@@ -12,3 +12,7 @@ class NoToken(Error):
 
 class WrongOption(Error):
     pass
+
+
+class WrongAttributes(Error):
+    pass

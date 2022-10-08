@@ -1,6 +1,7 @@
 import sys
 
-from src.cli.exceptions import NoToken, WrongOption
+from src.cli.exceptions import NoToken, WrongOption, WrongAttributes
+from src.api.docs import docs_description
 
 
 def cli_execute(operation, options):
@@ -11,27 +12,45 @@ def cli_execute(operation, options):
         print('No GitHub developer token set.')
         sys.exit()
 
+    selected_operation = ''
     try:
         if operation == 'gom':
-            pass
+            if 'org' not in options:
+                raise WrongAttributes
+            selected_operation = docs_description['Get organization\'s members']['endpoint']
         elif operation == 'gomu':
-            pass
+            if 'org' not in options and 'username' not in options:
+                raise WrongAttributes
+            selected_operation = docs_description['Get organization\'s member by username']['endpoint']
         elif operation == 'grc':
-            pass
+            if 'owner' not in options and 'repo' not in options:
+                raise WrongAttributes
+            selected_operation = docs_description['Get repository\'s collaborators']['endpoint']
         elif operation == 'grcu':
-            pass
+            if 'owner' not in options and 'repo' not in options and 'username' not in options:
+                raise WrongAttributes
+            selected_operation = docs_description['Get repository\'s collaborator by username']['endpoint']
         elif operation == 'cpr':
-            pass
+            if 'owner' not in options and 'repo' not in options:
+                raise WrongAttributes
+            selected_operation = docs_description['Create a pull request']['endpoint']
         elif operation == 'upr':
-            pass
+            if 'owner' not in options and 'repo' not in options and 'pull-number' not in options:
+                raise WrongAttributes
+            selected_operation = docs_description['Update a pull request']['endpoint']
         elif operation == 'mpr':
-            pass
+            if 'owner' not in options and 'repo' not in options and 'pull-number' not in options:
+                raise WrongAttributes
+            selected_operation = docs_description['Merge a pull request']['endpoint']
         elif operation == 'cr':
-            pass
+            selected_operation = docs_description['Create a repository']['endpoint']
         elif operation == 'dr':
-            pass
+            selected_operation = docs_description['Delete a repository']['endpoint']
         else:
             raise WrongOption
     except WrongOption:
         print('Wrong option.')
+        sys.exit()
+    except WrongAttributes:
+        print('Wrong attributes.')
         sys.exit()
