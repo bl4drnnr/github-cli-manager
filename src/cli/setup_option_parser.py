@@ -3,37 +3,52 @@ import argparse
 
 def setup_option_parser(argv):
     parser = argparse.ArgumentParser(add_help=False)
+
+    parser.add_argument('token', help='GitHub developer token.')
+
+    parser.add_argument('-o', '--org',
+                        metavar='',
+                        help='Organization name.')
+    parser.add_argument('-u', '--username',
+                        metavar='',
+                        help='Username.')
+    parser.add_argument('-own', '--owner',
+                        metavar='',
+                        help='Owner.')
+    parser.add_argument('-r', '--repo',
+                        metavar='',
+                        help='Repository.')
+    parser.add_argument('-p', '--pull-number',
+                        metavar='',
+                        help='Pull number.')
     parser.add_argument('-h', '--help',
                         action='help',
                         help='Display this message.')
-    parser.add_argument('-t', '--token',
+    parser.add_argument('--gom',
                         metavar='',
-                        help='GitHub developer token.')
-    parser.add_argument('-gom',
+                        help='Get organization\'s members.')
+    parser.add_argument('--gomu',
                         metavar='',
-                        help='List organization members.')
-    parser.add_argument('-gomu',
+                        help='Get organization\'s member by username.')
+    parser.add_argument('--grc',
                         metavar='',
-                        help='Check organization membership for a user.')
-    parser.add_argument('-grc',
+                        help='Get repository\'s collaborators.')
+    parser.add_argument('--grcu',
                         metavar='',
-                        help='List repository collaborators.')
-    parser.add_argument('-grcu',
+                        help='Get repository\'s collaborator by username.')
+    parser.add_argument('--cpr',
                         metavar='',
-                        help='Check if a user is a repository collaborator.')
-    parser.add_argument('-cpr',
+                        help='Create a pull request.')
+    parser.add_argument('--upr',
                         metavar='',
-                        help='Draft pull requests are available in public repositories.')
-    parser.add_argument('-upr',
-                        metavar='',
-                        help='Draft pull requests are available in public repositories.')
-    parser.add_argument('-mpr',
+                        help='Update a pull request.')
+    parser.add_argument('--mpr',
                         metavar='',
                         help='Merge a pull request.')
-    parser.add_argument('-crepo',
+    parser.add_argument('--cr',
                         metavar='',
-                        help='Create a new repository for the authenticated user.')
-    parser.add_argument('-drepo',
+                        help='Create a repository.')
+    parser.add_argument('--dr',
                         metavar='',
                         help='Deleting a repository')
     return parser.parse_args(argv)
