@@ -32,6 +32,7 @@ def cli(argv):
         sys.exit()
 
     cli_execute(operation[0], set_options)
+    sys.exit()
 
 
 def interactive_cli(stdscr):

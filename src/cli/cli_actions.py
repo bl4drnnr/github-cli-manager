@@ -1,8 +1,8 @@
 import sys
 
 from src.cli.exceptions import NoToken, WrongOption, WrongAttributes
-from src.curses_menu.menu_api.docs import docs_description
-from src.cli.fetch_data import send_request
+from src.api.docs import docs_description
+from src.api.fetch_data import send_request
 
 
 def cli_execute(operation, options):
@@ -59,4 +59,5 @@ def cli_execute(operation, options):
         print('Wrong attributes.')
         sys.exit()
 
-    send_request(endpoint, options, method, body)
+    response = send_request(endpoint, options, method, options['token'], body, None)
+    print(str(response))

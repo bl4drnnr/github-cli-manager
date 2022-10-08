@@ -1,7 +1,7 @@
 import curses
 
-from src.curses_menu.menu_api.docs import docs_description
-from src.curses_menu.menu_api.fetch_data import send_request
+from src.api.docs import docs_description
+from src.api.fetch_data import send_request
 
 from src.curses_menu.menu.common import INTRO_LOGO, PAD_HEIGHT, PARAM_DICTIONARY
 
@@ -160,7 +160,7 @@ def print_command_documentation(stdscr, command):
                 if param_to_set == param_key:
                     body[param_to_set] = print_raw_input(stdscr, param_value)
 
-    response = send_request(stdscr, selected_command['endpoint'], additional_options, method, token.strip(), body)
+    response = send_request(selected_command['endpoint'], additional_options, method, token.strip(), body, stdscr)
 
     if response is not None:
 
