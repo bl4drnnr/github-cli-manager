@@ -2,8 +2,8 @@ import sys
 
 from curses import wrapper
 
-from src.menu.menu_navigator import print_introduction, print_menu, navigate_menu
-from src.curses_settings.init_curses import init_curses
+from src.curses_menu.menu.menu_navigator import print_introduction, print_menu, navigate_menu
+from src.curses_menu.curses_settings.init_curses import init_curses
 
 from src.cli.setup_option_parser import setup_option_parser
 from src.cli.exceptions import SingleArgument

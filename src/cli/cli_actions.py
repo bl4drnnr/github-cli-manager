@@ -1,7 +1,7 @@
 import sys
 
 from src.cli.exceptions import NoToken, WrongOption, WrongAttributes
-from src.api.docs import docs_description
+from src.curses_menu.menu_api.docs import docs_description
 
 
 def cli_execute(operation, options):

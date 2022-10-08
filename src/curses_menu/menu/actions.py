@@ -1,9 +1,9 @@
 import curses
 
-from src.api.docs import docs_description
-from src.api.fetch_data import send_request
+from src.curses_menu.menu_api.docs import docs_description
+from src.curses_menu.menu_api.fetch_data import send_request
 
-from src.menu.common import INTRO_LOGO, PAD_HEIGHT, PARAM_DICTIONARY
+from src.curses_menu.menu.common import INTRO_LOGO, PAD_HEIGHT, PARAM_DICTIONARY
 
 
 def pad_refresh(pad, pad_pos, height, width):
