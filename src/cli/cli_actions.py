@@ -23,31 +23,31 @@ def cli_execute(operation, options):
         elif operation == 'gomu':
             if 'org' not in options and 'username' not in options:
                 raise WrongAttributes
-            selected_operation = docs_description['Get organization\'s member by username']['endpoint']
+            selected_operation = docs_description['Get organization\'s member by username']
         elif operation == 'grc':
             if 'owner' not in options and 'repo' not in options:
                 raise WrongAttributes
-            selected_operation = docs_description['Get repository\'s collaborators']['endpoint']
+            selected_operation = docs_description['Get repository\'s collaborators']
         elif operation == 'grcu':
             if 'owner' not in options and 'repo' not in options and 'username' not in options:
                 raise WrongAttributes
-            selected_operation = docs_description['Get repository\'s collaborator by username']['endpoint']
+            selected_operation = docs_description['Get repository\'s collaborator by username']
         elif operation == 'cpr':
             if 'owner' not in options and 'repo' not in options:
                 raise WrongAttributes
-            selected_operation = docs_description['Create a pull request']['endpoint']
+            selected_operation = docs_description['Create a pull request']
         elif operation == 'upr':
             if 'owner' not in options and 'repo' not in options and 'pull-number' not in options:
                 raise WrongAttributes
-            selected_operation = docs_description['Update a pull request']['endpoint']
+            selected_operation = docs_description['Update a pull request']
         elif operation == 'mpr':
             if 'owner' not in options and 'repo' not in options and 'pull-number' not in options:
                 raise WrongAttributes
-            selected_operation = docs_description['Merge a pull request']['endpoint']
+            selected_operation = docs_description['Merge a pull request']
         elif operation == 'cr':
-            selected_operation = docs_description['Create a repository']['endpoint']
+            selected_operation = docs_description['Create a repository']
         elif operation == 'dr':
-            selected_operation = docs_description['Delete a repository']['endpoint']
+            selected_operation = docs_description['Delete a repository']
         else:
             raise WrongOption
         endpoint = selected_operation['endpoint']
