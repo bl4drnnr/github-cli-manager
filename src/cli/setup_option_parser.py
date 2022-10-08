@@ -35,7 +35,7 @@ def setup_option_parser(argv):
                         help='Get repository\'s collaborators.')
     parser.add_argument('--grcu',
                         metavar='',
-                        help='CheckGet repository\'s collaborator by username.')
+                        help='Get repository\'s collaborator by username.')
     parser.add_argument('--cpr',
                         metavar='',
                         help='Create a pull request.')
