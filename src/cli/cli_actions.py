@@ -2,6 +2,7 @@ import sys
 
 from src.cli.exceptions import NoToken, WrongOption, WrongAttributes
 from src.curses_menu.menu_api.docs import docs_description
+from src.cli.fetch_data import send_request
 
 
 def cli_execute(operation, options):
@@ -12,12 +13,13 @@ def cli_execute(operation, options):
         print('No GitHub developer token set.')
         sys.exit()
 
-    selected_operation = ''
+    body = {}
+
     try:
         if operation == 'gom':
             if 'org' not in options:
                 raise WrongAttributes
-            selected_operation = docs_description['Get organization\'s members']['endpoint']
+            selected_operation = docs_description['Get organization\'s members']
         elif operation == 'gomu':
             if 'org' not in options and 'username' not in options:
                 raise WrongAttributes
@@ -48,9 +50,13 @@ def cli_execute(operation, options):
             selected_operation = docs_description['Delete a repository']['endpoint']
         else:
             raise WrongOption
+        endpoint = selected_operation['endpoint']
+        method = selected_operation['method']
     except WrongOption:
         print('Wrong option.')
         sys.exit()
     except WrongAttributes:
         print('Wrong attributes.')
         sys.exit()
+
+    send_request(endpoint, options, method, body)
