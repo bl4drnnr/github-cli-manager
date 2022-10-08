@@ -6,7 +6,7 @@ import curses
 BASE_URL = 'https://api.github.com'
 
 
-def send_request(stdscr, endpoint, additional_options, method, token, body=None):
+def send_request(endpoint, additional_options, method, token, body=None, stdscr=None):
     try:
 
         for item, value in additional_options.items():
@@ -24,7 +24,10 @@ def send_request(stdscr, endpoint, additional_options, method, token, body=None)
                 'Accept': 'application/vnd.github+json'
             }
 
-        stdscr.addstr(f'\n\nSending {method} request to {request_url}\n', curses.color_pair(2))
+        if stdscr:
+            stdscr.addstr(f'\n\nSending {method} request to {request_url}\n', curses.color_pair(2))
+        else:
+            print(f'Sending {method} request to {request_url}')
 
         json_body = json.dumps(body)
         if method == 'GET':
@@ -46,5 +49,8 @@ def send_request(stdscr, endpoint, additional_options, method, token, body=None)
             return json_formatted_str
     except requests.exceptions.RequestException as e:
         error_message = e.response.json()
-        stdscr.addstr(f'{error_message["message"]}\n', curses.color_pair(3) | curses.A_BOLD)
+        if stdscr:
+            stdscr.addstr(f'{error_message["message"]}\n', curses.color_pair(3) | curses.A_BOLD)
+        else:
+            print(f'{error_message["message"]}')
         return
