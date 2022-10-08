@@ -10,7 +10,7 @@
 # Table of Contents
 1. [Introduction](#introduction)
 2. [CLI Documentation](#cli-documentation)
-3. [Interactive CLI Documentation]()
+3. [Interactive CLI Documentation](#interactive-cli-documentation)
    1. [Get organization's members](#get-organizations-members)
    2. [Get organization's member by username](#get-organizations-member-by-username)
    3. [Get repository's collaborators](#get-repositorys-collaborators)
@@ -29,9 +29,43 @@
 to use **_GitHub REST API_** in order to **_read/write/update users/repositories_**
 of your private or organization GitHub account.
 
+Application is available in 2 versions:
+- interactive terminal-based application with graphic interface
+- simple **CLI** application
+
+Documentation for [CLI](#cli-documentation) and for [Interactive CLI](#interactive-cli-documentation) are available below.
+
 ---
 
 ## CLI Documentation
+
+CLI documentation is available under `-h` or `--help` flags.
+
+```
+usage: main.py [-o] [-u] [-own] [-r] [-p] [-h] [--gom] [--gomu] [--grc] [--grcu] [--cpr]
+               [--upr] [--mpr] [--cr] [--dr]
+               token
+
+positional arguments:
+  token                GitHub developer token.
+
+optional arguments:
+  -o , --org           Organization name.
+  -u , --username      Username.
+  -own , --owner       Owner.
+  -r , --repo          Repository.
+  -p , --pull-number   Pull number.
+  -h, --help           Display this message.
+  --gom                Get organization's members.
+  --gomu               Get organization's member by username.
+  --grc                Get repository's collaborators.
+  --grcu               Get repository's collaborator by username.
+  --cpr                Create a pull request.
+  --upr                Update a pull request.
+  --mpr                Merge a pull request.
+  --cr                 Create a repository.
+  --dr                 Deleting a repository
+```
 
 ---
 
