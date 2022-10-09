@@ -9,8 +9,9 @@
 
 # Table of Contents
 1. [Introduction](#introduction)
-2. [CLI Documentation](#cli-documentation)
-3. [Interactive CLI Documentation](#interactive-cli-documentation)
+2. [Installation](#installation)
+3. [CLI Documentation](#cli-documentation)
+4. [Interactive CLI Documentation](#interactive-cli-documentation)
    1. [Get organization's members](#get-organizations-members)
    2. [Get organization's member by username](#get-organizations-member-by-username)
    3. [Get repository's collaborators](#get-repositorys-collaborators)
@@ -20,8 +21,8 @@
    7. [Merge a pull request](#merge-a-pull-request)
    8. [Create a repository](#create-a-repository)
    9. [Delete a repository](#delete-a-repository)
-4. [References](#references)
-5. [License](#license)
+5. [References](#references)
+6. [License](#license)
 
 ---
 
@@ -35,6 +36,18 @@ Application is available in 2 versions:
 - simple **CLI** application
 
 Documentation for [CLI](#cli-documentation) and for [Interactive CLI](#interactive-cli-documentation) are available below.
+
+---
+
+## Installation
+
+In order to install program for `Linux`/`MacOS`, open terminal and run:
+
+```
+bash <(curl -s -S -L https://raw.githubusercontent.com/bl4drnnr/github-cli-manager/master/install.sh)
+```
+
+This will download `GitHub Manager`, install and start setup.
 
 ---
 
