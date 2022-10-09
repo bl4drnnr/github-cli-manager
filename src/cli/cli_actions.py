@@ -34,6 +34,8 @@ def cli_execute(operation, options):
     for option in options:
         if option != 'token':
             used_options.append(option)
+        elif option == 'pull-number':
+            used_options.append('pull_number')
 
     body = {}
     updated_options = {}
@@ -59,10 +61,10 @@ def cli_execute(operation, options):
             del options['head']
             del options['base']
         elif operation == 'upr':
-            required_options = ['owner', 'repo', 'pull-number']
+            required_options = ['owner', 'repo', 'pull_number']
             selected_operation = docs_description['Update a pull request']
         elif operation == 'mpr':
-            required_options = ['owner', 'repo', 'pull-number']
+            required_options = ['owner', 'repo', 'pull_number']
             selected_operation = docs_description['Merge a pull request']
         elif operation == 'cr':
             required_options = ['name']
