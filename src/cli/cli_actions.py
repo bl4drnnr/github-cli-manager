@@ -39,6 +39,7 @@ def cli_execute(operation, options):
 
     body = {}
     updated_options = {}
+    required_options = []
 
     try:
         if operation == 'gom':
@@ -87,6 +88,7 @@ def cli_execute(operation, options):
         sys.exit()
     except WrongAttributes:
         print('Wrong attributes.')
+        print('List of required attributes:', required_options)
         sys.exit()
 
     for key, option in options.items():
