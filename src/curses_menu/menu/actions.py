@@ -1,4 +1,5 @@
 import curses
+import sys
 
 from src.api.docs import docs_description
 from src.api.fetch_data import send_request
@@ -186,7 +187,7 @@ def print_command_documentation(stdscr, command):
             pad.addstr('\n\nPress Q to get back to menu...')
 
             movement_control(pad, pad_pos, height, width)
-            return
+            sys.exit()
 
     stdscr.addstr('\n\nPress any key to get back to menu...\n', curses.color_pair(4))
     stdscr.getch()
