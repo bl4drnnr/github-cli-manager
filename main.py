@@ -18,7 +18,7 @@ def cli(argv):
     set_options = {}
 
     for i in options.__dict__:
-        if options.__dict__[i] is not None:
+        if options.__dict__[i] is not None and options.__dict__[i]:
             if i in _AVAILABLE_OPTIONS:
                 operation.append(i)
             else:

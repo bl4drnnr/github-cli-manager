@@ -14,6 +14,7 @@ def cli_execute(operation, options):
         sys.exit()
 
     body = {}
+    updated_options = {}
 
     try:
         if operation == 'gom':
@@ -33,9 +34,13 @@ def cli_execute(operation, options):
                 raise WrongAttributes
             selected_operation = docs_description['Get repository\'s collaborator by username']
         elif operation == 'cpr':
-            if 'owner' not in options and 'repo' not in options:
+            if 'owner' not in options and 'repo' not in options and 'head' not in options and 'base' not in options:
                 raise WrongAttributes
             selected_operation = docs_description['Create a pull request']
+            body['head'] = options['head']
+            body['base'] = options['base']
+            del options['head']
+            del options['base']
         elif operation == 'upr':
             if 'owner' not in options and 'repo' not in options and 'pull-number' not in options:
                 raise WrongAttributes
@@ -45,8 +50,14 @@ def cli_execute(operation, options):
                 raise WrongAttributes
             selected_operation = docs_description['Merge a pull request']
         elif operation == 'cr':
+            if 'name' not in options:
+                raise WrongAttributes
             selected_operation = docs_description['Create a repository']
+            body['name'] = options['name']
+            del options['name']
         elif operation == 'dr':
+            if 'owner' not in options and 'repo' not in options:
+                raise WrongAttributes
             selected_operation = docs_description['Delete a repository']
         else:
             raise WrongOption
@@ -59,5 +70,8 @@ def cli_execute(operation, options):
         print('Wrong attributes.')
         sys.exit()
 
-    response = send_request(endpoint, options, method, options['token'], body, None)
+    for key, option in options.items():
+        updated_options['{' + key + '}'] = option
+
+    response = send_request(endpoint, updated_options, method, options['token'], body, None)
     print(str(response))
