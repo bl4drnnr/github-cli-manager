@@ -21,34 +21,43 @@ def setup_option_parser(argv):
     parser.add_argument('-p', '--pull-number',
                         metavar='',
                         help='Pull number.')
+    parser.add_argument('-d', '--head',
+                        metavar='',
+                        help='Head branch.')
+    parser.add_argument('-b', '--base',
+                        metavar='',
+                        help='Base branch.')
+    parser.add_argument('-n', '--name',
+                        metavar='',
+                        help='Name of repository.')
     parser.add_argument('-h', '--help',
                         action='help',
                         help='Display this message.')
     parser.add_argument('--gom',
-                        metavar='',
-                        help='Get organization\'s members.')
+                        help='Get organization\'s members.',
+                        action='store_true')
     parser.add_argument('--gomu',
-                        metavar='',
-                        help='Get organization\'s member by username.')
+                        help='Get organization\'s member by username.',
+                        action='store_true')
     parser.add_argument('--grc',
-                        metavar='',
-                        help='Get repository\'s collaborators.')
+                        help='Get repository\'s collaborators.',
+                        action='store_true')
     parser.add_argument('--grcu',
-                        metavar='',
-                        help='Get repository\'s collaborator by username.')
+                        help='Get repository\'s collaborator by username.',
+                        action='store_true')
     parser.add_argument('--cpr',
-                        metavar='',
-                        help='Create a pull request.')
+                        help='Create a pull request.',
+                        action='store_true')
     parser.add_argument('--upr',
-                        metavar='',
-                        help='Update a pull request.')
+                        help='Update a pull request.',
+                        action='store_true')
     parser.add_argument('--mpr',
-                        metavar='',
-                        help='Merge a pull request.')
+                        help='Merge a pull request.',
+                        action='store_true')
     parser.add_argument('--cr',
-                        metavar='',
-                        help='Create a repository.')
+                        help='Create a repository.',
+                        action='store_true')
     parser.add_argument('--dr',
-                        metavar='',
-                        help='Deleting a repository')
+                        help='Deleting a repository',
+                        action='store_true')
     return parser.parse_args(argv)

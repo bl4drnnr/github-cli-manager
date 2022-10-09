@@ -27,7 +27,7 @@
 ## Introduction
 **GITHUB-MANAGER** - is the simple _**Python terminal-based interactive application**_ that allows you 
 to use **_GitHub REST API_** in order to **_read/write/update users/repositories_**
-of your private or organization GitHub account.
+of private or public organizations and repositories.
 
 Application is available in 2 versions:
 - interactive terminal-based application with graphic interface
@@ -39,11 +39,14 @@ Documentation for [CLI](#cli-documentation) and for [Interactive CLI](#interacti
 
 ## CLI Documentation
 
-CLI documentation is available under `-h` or `--help` flags.
+CLI documentation is available under `-h` or `--help` flag.
+
+The only 2 flags that are required - `token` and one of action flags (everything under `--help` flag). Depending on flag,
+other optional arguments could be used.
 
 ```
-usage: main.py [-o] [-u] [-own] [-r] [-p] [-h] [--gom] [--gomu] [--grc] [--grcu] [--cpr]
-               [--upr] [--mpr] [--cr] [--dr]
+usage: main.py [-o] [-u] [-own] [-r] [-p] [-d] [-b] [-n] [-h] [--gom] [--gomu] [--grc]
+               [--grcu] [--cpr] [--upr] [--mpr] [--cr] [--dr]
                token
 
 positional arguments:
@@ -55,6 +58,9 @@ optional arguments:
   -own , --owner       Owner.
   -r , --repo          Repository.
   -p , --pull-number   Pull number.
+  -d , --head          Head branch.
+  -b , --base          Base branch.
+  -n , --name          Name of repository.
   -h, --help           Display this message.
   --gom                Get organization's members.
   --gomu               Get organization's member by username.
@@ -64,7 +70,7 @@ optional arguments:
   --upr                Update a pull request.
   --mpr                Merge a pull request.
   --cr                 Create a repository.
-  --dr                 Deleting a repository
+  --dr                 Deleting a repository.
 ```
 
 ---
