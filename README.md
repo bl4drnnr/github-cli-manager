@@ -21,6 +21,7 @@
    8. [Create a repository](#create-a-repository)
    9. [Delete a repository](#delete-a-repository)
 4. [References](#references)
+5. [License](#license)
 
 ---
 
@@ -219,8 +220,14 @@ If an organization owner has configured the organization to prevent members from
   
 ---
 
-### References:
+### References
 
 For more see [GitHub available endpoints list](https://docs.github.com/en/rest/overview/endpoints-available-for-github-apps)
 
 Developer contact - [mikhail.bahdashych@protonmail.com](mailto:mikhail.bahdashych@protonmail.com)
+
+---
+
+### License
+
+Licensed by [MIT License](LICENSE).

@@ -1,5 +1,5 @@
 import json
-
+import sys
 import requests
 import curses
 
@@ -53,4 +53,4 @@ def send_request(endpoint, additional_options, method, token, body=None, stdscr=
             stdscr.addstr(f'{error_message["message"]}\n', curses.color_pair(3) | curses.A_BOLD)
         else:
             print(f'{error_message["message"]}')
-        return
+        sys.exit()
