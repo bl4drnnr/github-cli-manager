@@ -12,7 +12,7 @@ git clone "$repository"
 
 for EACH_PROFILE in ".profile" ".bashrc" ".bash_profile" ".zprofile" ".zshrc"
     do
-      echo "alias ghmn='python3 \$HOME/.ghmn/main.py'" >> "~/${EACH_PROFILE}"
+      echo "alias ghmn='python3 ${HOME}/.ghmn/main.py'" >> "${HOME}/${EACH_PROFILE}"
     done
 
 echo "GitHub-Manager have been successfully installed..."
