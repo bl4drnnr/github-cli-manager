@@ -15,6 +15,7 @@ PARAM_DICTIONARY = {
     '{owner}': 'Provide repository owner: ',
     '{repo}': 'Provide repository name: ',
     '{pull_number}': 'Provide number that identifies the pull request: ',
+    '{name}': 'Provide name: ',
     'title': 'Set title: ',
     'body': 'Set body: ',
     'base': 'Set base branch: ',

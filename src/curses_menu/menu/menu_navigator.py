@@ -11,6 +11,8 @@ MENU = [
     'Merge a pull request\n\n',
     'Create a repository\n',
     'Delete a repository\n\n',
+    'Get all gitignore templates\n',
+    'Get a gitignore template\n\n',
     'Documentation\n',
     'Exit\n'
 ]

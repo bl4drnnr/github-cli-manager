@@ -159,6 +159,25 @@ docs_description = {
             'optional': ['description', 'homepage', 'private']
         }
     },
+    'Get all gitignore templates': {
+        'endpoint': '/gitignore/templates',
+        'description': [
+            ' - GET /gitignore/templates - List all templates available to pass as an option when creating a repository.\n\n'
+        ],
+        'method': 'GET'
+    },
+    'Get a gitignore template': {
+        'endpoint': '/gitignore/templates/{name}',
+        'description': [
+            ' - GET /gitignore/templates/{name} - Get gitignore template by name.\n\n'
+        ],
+        'params_description': {
+            'path_params': [
+                ' - name: string (required) - Name of the template.\n'
+            ],
+        },
+        'method': 'GET'
+    },
     'Delete a repository': {
         'endpoint': '/repos/{owner}/{repo}',
         'description': [
