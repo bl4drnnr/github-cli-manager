@@ -60,4 +60,10 @@ def setup_option_parser(argv):
     parser.add_argument('--dr',
                         help='Deleting a repository',
                         action='store_true')
+    parser.add_argument('--gagt',
+                        help='Get all gitignore templates',
+                        action='store_true')
+    parser.add_argument('--gagtn',
+                        help='Get a gitignore template',
+                        action='store_true')
     return parser.parse_args(argv)

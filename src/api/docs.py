@@ -159,6 +159,20 @@ docs_description = {
             'optional': ['description', 'homepage', 'private']
         }
     },
+    'Delete a repository': {
+        'endpoint': '/repos/{owner}/{repo}',
+        'description': [
+            ' - DELETE /repos/{owner}/{repo} - Deleting a repository requires admin access. If OAuth is used, the delete_repo scope is required.\n',
+            'If an organization owner has configured the organization to prevent members from deleting organization-owned repositories, you will get a 403 Forbidden response.\n\n'
+        ],
+        'params_description': {
+            'path_params': [
+                ' - owner: string (required) - The account owner of the repository. The name is not case-sensitive.\n',
+                ' - repo: string (required) - The name of the repository. The name is not case-sensitive.\n'
+            ]
+        },
+        'method': 'DELETE'
+    },
     'Get all gitignore templates': {
         'endpoint': '/gitignore/templates',
         'description': [
@@ -178,18 +192,4 @@ docs_description = {
         },
         'method': 'GET'
     },
-    'Delete a repository': {
-        'endpoint': '/repos/{owner}/{repo}',
-        'description': [
-            ' - DELETE /repos/{owner}/{repo} - Deleting a repository requires admin access. If OAuth is used, the delete_repo scope is required.\n',
-            'If an organization owner has configured the organization to prevent members from deleting organization-owned repositories, you will get a 403 Forbidden response.\n\n'
-        ],
-        'params_description': {
-            'path_params': [
-                ' - owner: string (required) - The account owner of the repository. The name is not case-sensitive.\n',
-                ' - repo: string (required) - The name of the repository. The name is not case-sensitive.\n'
-            ]
-        },
-        'method': 'DELETE'
-    }
 }

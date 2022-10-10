@@ -75,6 +75,11 @@ def cli_execute(operation, options):
         elif operation == 'dr':
             required_options = ['owner', 'repo']
             selected_operation = docs_description['Delete a repository']
+        elif operation == 'gagt':
+            selected_operation = docs_description['Get all gitignore templates']
+        elif operation == 'gagtn':
+            required_options = ['name']
+            selected_operation = docs_description['Get a gitignore template']
         else:
             raise WrongOption
 
