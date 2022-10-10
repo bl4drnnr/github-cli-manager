@@ -8,8 +8,7 @@ from src.curses_menu.curses_settings.init_curses import init_curses
 from src.cli.setup_option_parser import setup_option_parser
 from src.cli.exceptions import SingleArgument
 from src.cli.cli_actions import cli_execute
-
-_AVAILABLE_OPTIONS = ['gom', 'gomu', 'grc', 'grcu', 'cpr', 'upr', 'mpr', 'cr', 'dr']
+from src.cli.common import AVAILABLE_OPTIONS
 
 
 def cli(argv):
@@ -19,7 +18,7 @@ def cli(argv):
 
     for i in options.__dict__:
         if options.__dict__[i] is not None and options.__dict__[i]:
-            if i in _AVAILABLE_OPTIONS:
+            if i in AVAILABLE_OPTIONS:
                 operation.append(i)
             else:
                 set_options[i] = options.__dict__[i]

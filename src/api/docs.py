@@ -178,6 +178,7 @@ docs_description = {
         'description': [
             ' - GET /gitignore/templates - List all templates available to pass as an option when creating a repository.\n\n'
         ],
+        'params_description': {},
         'method': 'GET'
     },
     'Get a gitignore template': {

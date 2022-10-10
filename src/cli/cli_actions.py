@@ -82,9 +82,9 @@ def cli_execute(operation, options):
             selected_operation = docs_description['Get a gitignore template']
         else:
             raise WrongOption
-
-        if not isSubArray(used_options, required_options, len(used_options), len(required_options)):
-            raise WrongAttributes
+        if len(required_options) > 0:
+            if not isSubArray(used_options, required_options, len(used_options), len(required_options)):
+                raise WrongAttributes
 
         endpoint = selected_operation['endpoint']
         method = selected_operation['method']

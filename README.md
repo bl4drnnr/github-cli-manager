@@ -60,7 +60,7 @@ other optional arguments could be used.
 
 ```
 usage: main.py [-o] [-u] [-own] [-r] [-p] [-d] [-b] [-n] [-h] [--gom] [--gomu] [--grc]
-               [--grcu] [--cpr] [--upr] [--mpr] [--cr] [--dr]
+               [--grcu] [--cpr] [--upr] [--mpr] [--cr] [--dr] [--gagt] [--gagtn]
                token
 
 positional arguments:
@@ -84,7 +84,9 @@ optional arguments:
   --upr                Update a pull request.
   --mpr                Merge a pull request.
   --cr                 Create a repository.
-  --dr                 Deleting a repository.
+  --dr                 Deleting a repository
+  --gagt               Get all gitignore templates
+  --gagtn              Get a gitignore template
 ```
 
 ---
@@ -231,6 +233,20 @@ If an organization owner has configured the organization to prevent members from
 - `owner`: string - **required** - The account owner of the repository. The name is not case-sensitive.
 - `repo`: string - **required** - The name of the repository. The name is not case-sensitive.
   
+---
+
+### Get all gitignore templates
+- **GET /gitignore/templates** - List all templates available to pass as an option when creating a repository.
+
+---
+
+### Get a gitignore template
+- **GET /gitignore/templates/{name}** - Get gitignore template by name.
+
+`Path parameters`:
+
+- `name`: string - **required** - Name of the template.
+
 ---
 
 ### References
