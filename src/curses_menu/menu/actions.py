@@ -101,7 +101,9 @@ def print_documentation(stdscr):
         for description_key, description_value in value['params_description'].items():
             if description_key == 'path_params':
                 pad.addstr('Path parameters:\n')
-            else:
+            elif description_key == 'query_params':
+                pad.addstr('Query parameters:\n')
+            elif description_key == 'body_params':
                 pad.addstr('Body parameters:\n')
             for path_param in description_value:
                 pad.addstr(path_param)

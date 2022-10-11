@@ -1,4 +1,37 @@
 docs_description = {
+    'List repositories for a user': {
+        'endpoint': '/users/{username}/repos',
+        'description': [
+            ' - GET /users/{username}/repos - Lists public repositories for the specified user.\n',
+            'Note: For GitHub AE, this endpoint will list internal repositories for the specified user.\n\n'
+        ],
+        'params_description': {
+            'path_params': [
+                ' - username: string (required) - The handle for the GitHub user account.\n\n',
+            ],
+            'query_params': [
+                ' - type: string (optional) - Limit results to repositories of the specified type: all, owner (default), member.\n',
+                ' - sort: string (optional) - The property to sort the results by.\n\n'
+            ]
+        },
+        'method': 'GET'
+    },
+    'List organization repositories': {
+        'endpoint': '/orgs/{org}/repos',
+        'description': [
+            ' - GET /orgs/{org}/repos - Lists repositories for the specified organization.\n\n'
+        ],
+        'params_description': {
+            'path_params': [
+                ' - org: string (required) - The organization name. The name is not case-sensitive.\n\n'
+            ],
+            'query_params': [
+                ' - type: string (optional) - Specifies the types of repositories you want returned.\n',
+                ' - sort: string (optional) - The property to sort the results by: created (default), updated, pushed, full_name.\n\n'
+            ]
+        },
+        'method': 'GET'
+    },
     'Get organization\'s members': {
         'endpoint': '/orgs/{org}/members',
         'description': [
