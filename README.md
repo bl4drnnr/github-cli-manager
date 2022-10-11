@@ -59,8 +59,8 @@ The only 2 flags that are required - `token` and one of action flags (everything
 other optional arguments could be used.
 
 ```
-usage: main.py [-o] [-u] [-own] [-r] [-p] [-d] [-b] [-n] [-h] [--gom] [--gomu] [--grc] [--grcu] [--cpr] [--upr] [--mpr] [--cr]
-               [--dr] [--gagt] [--gagtn] [--lrfu] [--lor]
+usage: main.py [-o] [-u] [-own] [-r] [-p] [-d] [-b] [-n] [-q] [-h] [--gom] [--gomu] [--grc] [--grcu] [--cpr] [--upr] [--mpr]
+               [--cr] [--dr] [--gagt] [--gagtn] [--lrfu] [--lor]
                token
 
 positional arguments:
@@ -75,6 +75,7 @@ optional arguments:
   -d , --head          Head branch.
   -b , --base          Base branch.
   -n , --name          Name of repository.
+  -q , --query         Query. (Example: --query=?type=all&sort=updated)
   -h, --help           Display this message.
   --gom                Get organization's members.
   --gomu               Get organization's member by username.
@@ -101,8 +102,37 @@ Below will be listed description to every possible menu option (basically, just 
 
 ---
 
+### List repositories for a user
+- **GET /users/{username}/repos** - Lists public repositories for the specified user.
+Note: For GitHub AE, this endpoint will list internal repositories for the specified user.
+
+`Path parameters:`
+
+- `username`: string - **required** - The handle for the GitHub user account.
+
+`Query parameters:`
+
+- `type`: string - optional - Limit results to repositories of the specified type: all, owner (default), member.
+- `sort`: string - optional - The property to sort the results by.
+
+---
+
+### List organization repositories
+ - **GET /orgs/{org}/repos** - Lists repositories for the specified organization.
+
+`Path parameters:`
+
+- `org`: string - **required** - The organization name. The name is not case-sensitive.
+
+`Query parameters:`
+
+- `type`: string - optional - Specifies the types of repositories you want returned.
+- `sort`: string - optional - The property to sort the results by: created (default), updated, pushed, full_name.
+
+---
+
 ### Get organization's members
- - **GET /orgs/{org}/members** - List organization members
+ - **GET /orgs/{org}/members** - List organization members.
 List all users who are members of an organization. If the authenticated user is also a member of this organization
 then both concealed and public members will be returned.
 
@@ -113,7 +143,7 @@ then both concealed and public members will be returned.
 ---
 
 ### Get organization's member by username
- - **GET /orgs/{org}/members/{username}** - Check organization membership for a user
+ - **GET /orgs/{org}/members/{username}** - Check organization membership for a user.
 Check if a user is, publicly or privately, a member of the organization.
 
 `Path parameters:`
@@ -124,7 +154,7 @@ Check if a user is, publicly or privately, a member of the organization.
 ---
 
 ### Get repository's collaborators
- - **GET /repos/{owner}/{repo}/collaborators** - List repository collaborators
+ - **GET /repos/{owner}/{repo}/collaborators** - List repository collaborators.
 For organization-owned repositories, the list of collaborators includes outside
 collaborators, organization members that are direct collaborators, organization
 members with access through team memberships, organization members with
@@ -138,7 +168,7 @@ access through default organization permissions, and organization owners.
 ---
 
 ### Get repository's collaborator by username
- - **GET /repos/{owner}/{repo}/collaborators/{username}** - Check if a user is a repository collaborator
+ - **GET /repos/{owner}/{repo}/collaborators/{username}** - Check if a user is a repository collaborator.
 For organization-owned repositories, the list of collaborators includes outside
 collaborators, organization members that are direct collaborators, organization
 members with access through team memberships, organization members with
@@ -153,7 +183,7 @@ access through default organization permissions, and organization owners.
 ---
 
 ### Create a pull request
-- **POST /repos/{owner}/{repo}/pulls** - Draft pull requests are available in public repositories
+- **POST /repos/{owner}/{repo}/pulls** - Draft pull requests are available in public repositories.
 To open or update a pull request in a public repository, you must have write
 access to the head or the source branch. For organization-owned repositories,
 you must be a member of the organization that owns the repository to open or
@@ -172,7 +202,7 @@ update a pull request.
 ---
 
 ### Update a pull request
-- **PATCH /repos/{owner}/{repo}/pulls/{pull_number}** - Draft pull requests are available in public repositories
+- **PATCH /repos/{owner}/{repo}/pulls/{pull_number}** - Draft pull requests are available in public repositories.
 To open or update a pull request in a public repository, you must have write
 access to the head or the source branch. For organization-owned repositories,
 you must be a member of the organization that owns the repository to open or

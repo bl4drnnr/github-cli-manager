@@ -30,6 +30,9 @@ def setup_option_parser(argv):
     parser.add_argument('-n', '--name',
                         metavar='',
                         help='Name of repository.')
+    parser.add_argument('-q', '--query',
+                        metavar='',
+                        help='Query. (Example: --query=?type=all&sort=updated)')
     parser.add_argument('-h', '--help',
                         action='help',
                         help='Display this message.')
