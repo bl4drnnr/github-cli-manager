@@ -89,6 +89,9 @@ def cli_execute(operation, options):
         elif operation == 'lor':
             required_options = ['org']
             selected_operation = docs_description['List organization repositories']
+        elif operation == 'lofu':
+            required_options = ['username']
+            selected_operation = docs_description['List organizations for a user']
         else:
             raise WrongOption
         if len(required_options) > 0:

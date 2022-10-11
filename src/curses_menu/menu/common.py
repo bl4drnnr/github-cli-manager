@@ -26,6 +26,8 @@ PARAM_DICTIONARY = {
     'private': 'Is private? [Y/N]: ',
     'type': 'Set the type: ',
     'sort': 'Set the sort type: ',
+    'page': 'Set the page: ',
+    'per_page': 'Set quantity of items per page: ',
     'commit_title': 'Provide title for automatic commit message: ',
     'commit_message': 'Provide extra detail to append to automatic commit message: ',
     'merge_method': 'Provide merge method to use. Possible values are merge, squash or rebase (default is merge): '

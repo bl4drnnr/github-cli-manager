@@ -75,4 +75,7 @@ def setup_option_parser(argv):
     parser.add_argument('--lor',
                         help='Lists repositories for the specified organization.',
                         action='store_true')
+    parser.add_argument('--lofu',
+                        help='List public organization memberships for the specified user.',
+                        action='store_true')
     return parser.parse_args(argv)

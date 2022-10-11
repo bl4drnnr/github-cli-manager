@@ -12,15 +12,18 @@
 2. [Installation](#installation)
 3. [CLI Documentation](#cli-documentation)
 4. [Interactive CLI Documentation](#interactive-cli-documentation)
-   1. [Get organization's members](#get-organizations-members)
-   2. [Get organization's member by username](#get-organizations-member-by-username)
-   3. [Get repository's collaborators](#get-repositorys-collaborators)
-   4. [Get repository's collaborator by username](#get-repositorys-collaborator-by-username)
-   5. [Create a pull request](#create-a-pull-request)
-   6. [Update a pull request](#update-a-pull-request)
-   7. [Merge a pull request](#merge-a-pull-request)
-   8. [Create a repository](#create-a-repository)
-   9. [Delete a repository](#delete-a-repository)
+   1. [List repositories for a user](#list-repositories-for-a-user)
+   2. [List organizations for a user](#list-organizations-for-a-user)
+   3. [List organization repositories](#list-organization-repositories)
+   4. [Get organization's members](#get-organizations-members)
+   5. [Get organization's member by username](#get-organizations-member-by-username)
+   6. [Get repository's collaborators](#get-repositorys-collaborators)
+   7. [Get repository's collaborator by username](#get-repositorys-collaborator-by-username)
+   8. [Create a pull request](#create-a-pull-request)
+   9. [Update a pull request](#update-a-pull-request)
+   10. [Merge a pull request](#merge-a-pull-request)
+   11. [Create a repository](#create-a-repository)
+   12. [Delete a repository](#delete-a-repository)
 5. [References](#references)
 6. [License](#license)
 
@@ -60,7 +63,7 @@ other optional arguments could be used.
 
 ```
 usage: main.py [-o] [-u] [-own] [-r] [-p] [-d] [-b] [-n] [-q] [-h] [--gom] [--gomu] [--grc] [--grcu] [--cpr] [--upr] [--mpr]
-               [--cr] [--dr] [--gagt] [--gagtn] [--lrfu] [--lor]
+               [--cr] [--dr] [--gagt] [--gagtn] [--lrfu] [--lor] [--lofu]
                token
 
 positional arguments:
@@ -75,7 +78,7 @@ optional arguments:
   -d , --head          Head branch.
   -b , --base          Base branch.
   -n , --name          Name of repository.
-  -q , --query         Query. (Example: --query="?type=all&sort=updated")
+  -q , --query         Query. (Example: --query=?type=all&sort=updated)
   -h, --help           Display this message.
   --gom                Get organization's members.
   --gomu               Get organization's member by username.
@@ -90,6 +93,7 @@ optional arguments:
   --gagtn              Get a gitignore template.
   --lrfu               Lists public repositories for the specified user.
   --lor                Lists repositories for the specified organization.
+  --lofu               List public organization memberships for the specified user.
 ```
 
 ---
@@ -114,6 +118,22 @@ Note: For GitHub AE, this endpoint will list internal repositories for the speci
 
 - `type`: string - optional - Limit results to repositories of the specified type: all, owner (default), member.
 - `sort`: string - optional - The property to sort the results by.
+
+---
+
+### List organizations for a user
+- **GET /users/{username}/orgs** - List public organization memberships for the specified user.
+This method only lists public memberships, regardless of authentication. If you need to fetch all the organization memberships (public and private)
+for the authenticated user, use the List organizations for the authenticated user API instead.
+
+`Path parameters:`
+
+- `username`: string - **required** - The handle for the GitHub user account.
+
+`Query parameters:`
+
+- `per_page`: integer - optional - The number of results per page (max 100). Default is 30.
+- `page`: integer - optional - Page number of the results to fetch. Default is 1.
 
 ---
 

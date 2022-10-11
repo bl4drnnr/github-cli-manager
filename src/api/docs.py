@@ -17,6 +17,27 @@ docs_description = {
         'query_params': ['type', 'sort'],
         'method': 'GET'
     },
+    'List organizations for a user': {
+        'endpoint': '/users/{username}/orgs',
+        'description': [
+            ' - GET /users/{username}/orgs - List public organization memberships for the specified user.\n',
+            'This method only lists public memberships, regardless of authentication. If you\n',
+            'need to fetch all of the organization memberships (public and private) for the\n',
+            'authenticated user, use the List organizations for the authenticated user API\n',
+            'instead.\n\n'
+        ],
+        'params_description': {
+            'path_params': [
+                ' - username: string (required) - The handle for the GitHub user account.\n\n',
+            ],
+            'query_params': [
+                ' - page: string (optional) - The number of results per page (max 100). Default is 30.\n',
+                ' - per_page: string (optional) - Page number of the results to fetch. Default is 1.\n\n'
+            ]
+        },
+        'query_params': ['page', 'per_page'],
+        'method': 'GET'
+    },
     'List organization repositories': {
         'endpoint': '/orgs/{org}/repos',
         'description': [
