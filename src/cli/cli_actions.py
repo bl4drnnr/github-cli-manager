@@ -30,16 +30,19 @@ def cli_execute(operation, options):
         print('No GitHub developer token set.')
         sys.exit()
 
-    used_options = []
-    for option in options:
-        if option != 'token':
-            used_options.append(option)
-        elif option == 'pull-number':
-            used_options.append('pull_number')
-
     body = {}
     updated_options = {}
     required_options = []
+    used_options = []
+    query = ''
+
+    for option in options:
+        if option != 'token':
+            used_options.append(option)
+        if option == 'query':
+            query = options[option]
+        if option == 'pull-number':
+            used_options.append('pull_number')
 
     try:
         if operation == 'gom':
@@ -105,5 +108,5 @@ def cli_execute(operation, options):
     for key, option in options.items():
         updated_options['{' + key + '}'] = option
 
-    response = send_request(endpoint, updated_options, method, options['token'], body, None)
+    response = send_request(endpoint, updated_options, method, options['token'], body, query, None)
     print(str(response))

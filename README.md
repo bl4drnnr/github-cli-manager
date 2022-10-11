@@ -75,7 +75,7 @@ optional arguments:
   -d , --head          Head branch.
   -b , --base          Base branch.
   -n , --name          Name of repository.
-  -q , --query         Query. (Example: --query=?type=all&sort=updated)
+  -q , --query         Query. (Example: --query="?type=all&sort=updated")
   -h, --help           Display this message.
   --gom                Get organization's members.
   --gomu               Get organization's member by username.

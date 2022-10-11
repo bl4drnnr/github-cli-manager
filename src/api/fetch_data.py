@@ -6,13 +6,16 @@ import curses
 BASE_URL = 'https://api.github.com'
 
 
-def send_request(endpoint, additional_options, method, token, body=None, stdscr=None):
+def send_request(endpoint, additional_options, method, token, body=None, query=None, stdscr=None):
     try:
 
         for item, value in additional_options.items():
             endpoint = endpoint.replace(item, value)
 
         request_url = BASE_URL + endpoint
+
+        if len(query) > 0:
+            request_url += query
 
         if len(token) != 0:
             headers = {
