@@ -14,6 +14,7 @@ docs_description = {
                 ' - sort: string (optional) - The property to sort the results by.\n\n'
             ]
         },
+        'query_params': ['type', 'sort'],
         'method': 'GET'
     },
     'List organization repositories': {
@@ -30,6 +31,7 @@ docs_description = {
                 ' - sort: string (optional) - The property to sort the results by: created (default), updated, pushed, full_name.\n\n'
             ]
         },
+        'query_params': ['type', 'sort'],
         'method': 'GET'
     },
     'Get organization\'s members': {

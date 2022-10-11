@@ -163,7 +163,24 @@ def print_command_documentation(stdscr, command):
                 if param_to_set == param_key:
                     body[param_to_set] = print_raw_input(stdscr, param_value)
 
-    response = send_request(selected_command['endpoint'], additional_options, method, token.strip(), body, stdscr)
+    query_params = {}
+    query_string = ''
+    if 'query_params' in selected_command:
+        stdscr.addstr('\n\nProvide optional query parameters. If you don\'t want to do it, just leave the field empty.\n\n')
+        for query in selected_command['query_params']:
+            for param_key, param_value in PARAM_DICTIONARY.items():
+                if query == param_key:
+                    provided_query = print_raw_input(stdscr, param_value)
+                    if len(provided_query) > 0:
+                        query_params[query] = provided_query
+
+        if len(query_params) > 0:
+            query_string += '?'
+
+        for query_key, query_value in query_params.items():
+            query_string += f'{query_key}={query_value}'
+
+    response = send_request(selected_command['endpoint'], additional_options, method, token.strip(), body, query_string, stdscr)
 
     if response is not None:
 
