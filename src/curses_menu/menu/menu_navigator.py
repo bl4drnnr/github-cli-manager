@@ -2,6 +2,8 @@ import curses
 from src.curses_menu.menu.actions import print_documentation, print_exit_text, print_input, print_menu_description, print_command_documentation
 
 MENU = [
+    'List repositories for a user\n\n',
+    'List organization repositories\n',
     'Get organization\'s members\n',
     'Get organization\'s member by username\n',
     'Get repository\'s collaborators\n',

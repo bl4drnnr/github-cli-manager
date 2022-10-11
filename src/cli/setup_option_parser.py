@@ -58,12 +58,18 @@ def setup_option_parser(argv):
                         help='Create a repository.',
                         action='store_true')
     parser.add_argument('--dr',
-                        help='Deleting a repository',
+                        help='Deleting a repository.',
                         action='store_true')
     parser.add_argument('--gagt',
-                        help='Get all gitignore templates',
+                        help='Get all gitignore templates.',
                         action='store_true')
     parser.add_argument('--gagtn',
-                        help='Get a gitignore template',
+                        help='Get a gitignore template.',
+                        action='store_true')
+    parser.add_argument('--lrfu',
+                        help='Lists public repositories for the specified user.',
+                        action='store_true')
+    parser.add_argument('--lor',
+                        help='Lists repositories for the specified organization.',
                         action='store_true')
     return parser.parse_args(argv)

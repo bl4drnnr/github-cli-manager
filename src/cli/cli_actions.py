@@ -80,6 +80,12 @@ def cli_execute(operation, options):
         elif operation == 'gagtn':
             required_options = ['name']
             selected_operation = docs_description['Get a gitignore template']
+        elif operation == 'lrfu':
+            required_options = ['username']
+            selected_operation = docs_description['List repositories for a user']
+        elif operation == 'lor':
+            required_options = ['org']
+            selected_operation = docs_description['List organization repositories']
         else:
             raise WrongOption
         if len(required_options) > 0:

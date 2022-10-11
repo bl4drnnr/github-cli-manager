@@ -59,8 +59,8 @@ The only 2 flags that are required - `token` and one of action flags (everything
 other optional arguments could be used.
 
 ```
-usage: main.py [-o] [-u] [-own] [-r] [-p] [-d] [-b] [-n] [-h] [--gom] [--gomu] [--grc]
-               [--grcu] [--cpr] [--upr] [--mpr] [--cr] [--dr] [--gagt] [--gagtn]
+usage: main.py [-o] [-u] [-own] [-r] [-p] [-d] [-b] [-n] [-h] [--gom] [--gomu] [--grc] [--grcu] [--cpr] [--upr] [--mpr] [--cr]
+               [--dr] [--gagt] [--gagtn] [--lrfu] [--lor]
                token
 
 positional arguments:
@@ -84,9 +84,11 @@ optional arguments:
   --upr                Update a pull request.
   --mpr                Merge a pull request.
   --cr                 Create a repository.
-  --dr                 Deleting a repository
-  --gagt               Get all gitignore templates
-  --gagtn              Get a gitignore template
+  --dr                 Deleting a repository.
+  --gagt               Get all gitignore templates.
+  --gagtn              Get a gitignore template.
+  --lrfu               Lists public repositories for the specified user.
+  --lor                Lists repositories for the specified organization.
 ```
 
 ---
