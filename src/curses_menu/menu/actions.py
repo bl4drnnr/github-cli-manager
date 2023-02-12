@@ -178,7 +178,7 @@ def print_command_documentation(stdscr, command):
             query_string += '?'
 
         for query_key, query_value in query_params.items():
-            query_string += f'{query_key}={query_value}&'
+            query_string += f'{query_key}{"=" if query_key != "created" else ":"}{query_value}&'
         query_string = query_string[:-1]
 
     response = send_request(selected_command['endpoint'], additional_options, method, token.strip(), body, query_string, stdscr)

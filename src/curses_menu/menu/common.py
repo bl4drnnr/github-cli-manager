@@ -16,6 +16,7 @@ PARAM_DICTIONARY = {
     '{repo}': 'Provide the repository name: ',
     '{pull_number}': 'Provide the number that identifies the pull request: ',
     '{name}': 'Provide name: ',
+    'created': 'Create date (see GitHub format): ',
     'all': 'Do you want to get all items? (true/false): ',
     'title': 'Set the title: ',
     'body': 'Set the body: ',

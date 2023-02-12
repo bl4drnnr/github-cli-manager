@@ -210,10 +210,11 @@ docs_description = {
                 ' - page: string (optional) - The number of results per page (max 100). Default is 30.\n',
                 ' - per_page: string (optional) - Page number of the results to fetch. Default is 1.\n',
                 ' - state: string (optional) - Either open, closed, or all to filter by state. Default: open.\n'
+                ' - created: date (optional) - Filter by date (see GitHub format).\n',
                 ' - all: boolean (optional) - Set to true if you want to get ALL pull requests. Default is false. If set to true, page and per_page will be ignored.\n\n'
             ]
         },
-        'query_params': ['all', 'state', 'page', 'per_page'],
+        'query_params': ['all', 'created', 'state', 'page', 'per_page'],
         'method': 'GET'
     },
     'Create a repository': {
