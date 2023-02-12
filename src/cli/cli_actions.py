@@ -92,6 +92,9 @@ def cli_execute(operation, options):
         elif operation == 'lofu':
             required_options = ['username']
             selected_operation = docs_description['List organizations for a user']
+        elif operation == 'gapr':
+            required_options = ['owner', 'repo']
+            selected_operation = docs_description['Get all pull requests']
         else:
             raise WrongOption
         if len(required_options) > 0:

@@ -13,13 +13,11 @@
    8. [Create a pull request](#create-a-pull-request)
    9. [Update a pull request](#update-a-pull-request)
    10. [Merge a pull request](#merge-a-pull-request)
-   11. [Create a repository](#create-a-repository)
-   12. [Delete a repository](#delete-a-repository)
+   11. [Get all pull requests](#get-all-pull-requests)
+   12. [Create a repository](#create-a-repository)
+   13. [Delete a repository](#delete-a-repository)
 5. [References](#references)
 6. [License](#license)
-
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 
 ---
 
@@ -257,6 +255,24 @@ endpoint may result in secondary rate limiting. See "Secondary rate limits" and
 
 ---
 
+### Get all pull requests
+
+- **GET /repos/{owner}/{repo}/pulls** - Allows go get all pull requests
+
+`Path parameters:`
+
+- `owner`: string **required** - The account owner of the repository. The name is not case-sensitive.
+- `repo`: string **required** - The name of the repository. The name is not case-sensitive.
+
+`Query parameters:`
+
+- `page`: string - optional - The number of results per page (max 100). Default is 30.\n',
+- `per_page`: string - optional - Page number of the results to fetch. Default is 1.\n',
+- `state`: string - optional - Either open, closed, or all to filter by state. Default: open.\n'
+- `all`: boolean - optional - Set to true if you want to get ALL pull requests. Default is false. If set to true, page and per_page will be ignored.\n\n'
+
+---
+
 ### Create a repository
 - **POST /user/repos** - Create a new repository for the authenticated user.
 In order to specify the repository information, optional parameters could be set.
@@ -299,10 +315,13 @@ If an organization owner has configured the organization to prevent members from
 
 For more see [GitHub available endpoints list](https://docs.github.com/en/rest/overview/endpoints-available-for-github-apps)
 
-Developer contact - [mikhail.bahdashych@protonmail.com](mailto:mikhail.bahdashych@protonmail.com)
+Developer contact - [contact@mikhailbahdashych.me](mailto:contact@mikhailbahdashych.me)
 
 ---
 
 ### License
 
 Licensed by [MIT License](LICENSE).
+
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)

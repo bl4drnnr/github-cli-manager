@@ -57,6 +57,9 @@ def setup_option_parser(argv):
     parser.add_argument('--mpr',
                         help='Merge a pull request.',
                         action='store_true')
+    parser.add_argument('--gapr',
+                        help='Get all pull requests',
+                        action='store_true')
     parser.add_argument('--cr',
                         help='Create a repository.',
                         action='store_true')

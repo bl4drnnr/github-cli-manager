@@ -2,3 +2,5 @@ vevn
 __pycache__
 .idea
 .DS_Store
+*.txt
+test.py

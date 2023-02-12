@@ -32,10 +32,11 @@ docs_description = {
             ],
             'query_params': [
                 ' - page: string (optional) - The number of results per page (max 100). Default is 30.\n',
-                ' - per_page: string (optional) - Page number of the results to fetch. Default is 1.\n\n'
+                ' - per_page: string (optional) - Page number of the results to fetch. Default is 1.\n',
+                ' - all: boolean (optional) - Set to true if you want to get ALL pull requests. Default is false. If set to true, page and per_page will be ignored.\n\n'
             ]
         },
-        'query_params': ['page', 'per_page'],
+        'query_params': ['page', 'per_page', 'all'],
         'method': 'GET'
     },
     'List organization repositories': {
@@ -194,6 +195,26 @@ docs_description = {
         'payload': {
             'optional': ['commit_title', 'commit_message', 'merge_method']
         }
+    },
+    'Get all pull requests': {
+        'endpoint': '/repos/{owner}/{repo}/pulls',
+        'description': [
+            ' - GET /repos/{owner}/{repo}/pulls - Allows go get all pull requests\n\n'
+        ],
+        'params_description': {
+            'path_params': [
+                ' - owner: string (required) - The account owner of the repository. The name is not case-sensitive.\n',
+                ' - repo: string (required) - The name of the repository. The name is not case-sensitive.\n'
+            ],
+            'query_params': [
+                ' - page: string (optional) - The number of results per page (max 100). Default is 30.\n',
+                ' - per_page: string (optional) - Page number of the results to fetch. Default is 1.\n',
+                ' - state: string (optional) - Either open, closed, or all to filter by state. Default: open.\n'
+                ' - all: boolean (optional) - Set to true if you want to get ALL pull requests. Default is false. If set to true, page and per_page will be ignored.\n\n'
+            ]
+        },
+        'query_params': ['all', 'state', 'page', 'per_page'],
+        'method': 'GET'
     },
     'Create a repository': {
         'endpoint': '/user/repos',

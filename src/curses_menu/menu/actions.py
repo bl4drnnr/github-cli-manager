@@ -64,7 +64,7 @@ def print_exit_text(stdscr):
     stdscr.addstr('Well, hope you liked it and hope we will see again\n\n', curses.color_pair(4))
 
     stdscr.addstr('It case of any issues, feel free to contact me - ', curses.color_pair(4))
-    stdscr.addstr('mikhail.bahdashych@protonmail.com\n\n', curses.color_pair(1))
+    stdscr.addstr('contact@mikhailbahdashych.me\n\n', curses.color_pair(1))
 
     stdscr.addstr('Press any key to exit...', curses.color_pair(4))
 
@@ -178,7 +178,8 @@ def print_command_documentation(stdscr, command):
             query_string += '?'
 
         for query_key, query_value in query_params.items():
-            query_string += f'{query_key}={query_value}'
+            query_string += f'{query_key}={query_value}&'
+        query_string = query_string[:-1]
 
     response = send_request(selected_command['endpoint'], additional_options, method, token.strip(), body, query_string, stdscr)
 
